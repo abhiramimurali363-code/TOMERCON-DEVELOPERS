@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="javascript" href="navbar.js">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Tomercon Developers LLP | About Us</title>
+    
+    <!-- Professional font stack - MATCHING HOMEPAGE -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000000; /* Pure Black - matching homepage */
+            font-family: 'Inter', sans-serif;
+            color: #eef2f5;
+            overflow-x: hidden;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        h1, h2, h3, h4, .logo, .story-stat-number, .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* Navigation - EXACTLY MATCHING HOMEPAGE (Black/Blue theme) */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 1px solid #0a2a3a;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(0, 0, 0, 0.98);
+            border-bottom-color: #0066cc;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            background: linear-gradient(135deg, #ffffff, #3b82f6, #1e40af);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: #e0e4e8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #1e40af);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #3b82f6;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #e0e4e8;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .nav-container { padding: 0 1.5rem; }
+        }
+
+        /* Page Header - Black theme with blue accents */
+        .page-header {
+            min-height: 50vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.92) 0%, rgba(0, 10, 20, 0.305) 100%),
+                        url('https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1600');
+            background-size: cover;
+            background-position: center;
+            margin-top: 70px;
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .page-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            font-weight: 500;
+        }
+
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .page-subtitle {
+            font-size: 1rem;
+            color: #cbd5e1;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Section Styles */
+        .section-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 5rem 1.5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .section-title span {
+            color: #3b82f6;
+        }
+
+        .section-subtitle {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Story Grid */
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .story-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+
+        .story-text p {
+            color: #cbd5e1;
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+        }
+
+        .story-stats {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .story-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+
+        .story-stat-label {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 0.3rem;
+        }
+
+        /* Story Image - Black card */
+        .story-image {
+            background: #0a0a0a;
+            border-radius: 24px;
+            text-align: center;
+            border: 1px solid #1e2a3a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.08), transparent);
+            transition: left 0.8s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .story-image:hover::before {
+            left: 100%;
+        }
+
+        .story-photo {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .story-image-content {
+            padding: 2rem 2rem 2.5rem;
+        }
+
+        .story-image i {
+            font-size: 2.5rem;
+            color: #3b82f6;
+            margin-bottom: 1rem;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .story-image h4 {
+            color: #e2e8f0;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .story-image p {
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+
+        /* Partners Grid - Black cards with blue accents */
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 992px) {
+            .partners-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .partners-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .partner-card {
+            background: #0a0a0a;
+            border: 1px solid #1e2a3a;
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .partner-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #1e40af, #3b82f6, #1e40af);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .partner-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .partner-card:hover {
+            transform: translateY(-8px);
+            border-color: #3b82f6;
+            background: #111111;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .partner-logo {
+            width: 80px;
+            height: 80px;
+            background: #111827;
+            border: 1px solid #2d3a4a;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            transition: all 0.4s ease;
+        }
+
+        .partner-card:hover .partner-logo {
+            transform: scale(1.05);
+            border-color: #3b82f6;
+            background: #1e293b;
+        }
+
+        .partner-logo i {
+            font-size: 2.2rem;
+            color: #3b82f6;
+            transition: all 0.3s ease;
+        }
+
+        .partner-card:hover .partner-logo i {
+            color: #60a5fa;
+            transform: scale(1.1);
+        }
+
+        .partner-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #f0f5fa;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .partner-card:hover h4 {
+            color: #3b82f6;
+        }
+
+        .partner-type {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0.2rem 1rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+        }
+
+        .partner-card p {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .partner-stats {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.2rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid #1e2a3a;
+        }
+
+        .partner-stat-number {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+
+        .partner-stat-label {
+            font-size: 0.6rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Partners CTA */
+        .partners-cta {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.02));
+            border-radius: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.15);
+        }
+
+        .partners-cta p {
+            color: #cbd5e1;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .btn-outline-teal {
+            background: transparent;
+            border: 1.5px solid #3b82f6;
+            color: #3b82f6;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 40px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-outline-teal:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: #60a5fa;
+            color: #60a5fa;
+            transform: translateY(-2px);
+        }
+
+        /* Mission Vision Grid - Black cards */
+        .mv-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .mv-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .mv-card {
+            background: #0a0a0a;
+            border: 1px solid #1e2a3a;
+            border-radius: 24px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mv-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #1e40af, #3b82f6, #1e40af);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .mv-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .mv-card:hover {
+            transform: translateY(-8px);
+            border-color: #3b82f6;
+            background: #111111;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .mv-icon {
+            width: 70px;
+            height: 70px;
+            background: #111827;
+            border: 1px solid #2d3a4a;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            transition: all 0.4s ease;
+        }
+
+        .mv-card:hover .mv-icon {
+            transform: scale(1.1) rotate(5deg);
+            border-color: #3b82f6;
+            background: #1e293b;
+        }
+
+        .mv-icon i {
+            font-size: 2rem;
+            color: #3b82f6;
+            transition: all 0.3s ease;
+        }
+
+        .mv-card:hover .mv-icon i {
+            color: #60a5fa;
+            transform: scale(1.1);
+        }
+
+        .mv-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .mv-card:hover h3 {
+            color: #3b82f6;
+        }
+
+        .mv-card p {
+            color: #cbd5e1;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        /* Leadership Section */
+        .leadership-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            margin-top: 3rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .leader-card {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            background: transparent;
+            border-bottom: 1px solid #1e2a3a;
+            padding: 1.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .leader-image {
+            flex-shrink: 0;
+            width: 278px;
+            height: 280px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #111827;
+            border: 1px solid #2d3a4a;
+        }
+
+        .leader-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .leader-card:hover .leader-image img {
+            transform: scale(1.03);
+        }
+
+        .leader-info {
+            flex: 1;
+        }
+
+        .leader-info h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.25rem;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .leader-info p {
+            font-size: 1rem;
+            color: #3b82f6;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .leader-bio {
+            color: #cbd5e1;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            color: #64748b;
+            font-size: 1.2rem;
+            transition: color 0.2s;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: #3b82f6;
+        }
+
+        @media (max-width: 768px) {
+            .leader-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            .leader-image {
+                width: 300px;
+                height: 360px;
+            }
+            .leader-info h3 {
+                font-size: 1.6rem;
+            }
+            .leader-bio {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        /* CTA Section - Black theme */
+        .cta {
+            padding: 5rem 1.5rem;
+            background: #030712;
+            text-align: center;
+            border-top: 1px solid #1e2a3a;
+            border-bottom: 1px solid #1e2a3a;
+        }
+
+        .cta h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.3rem);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .cta p {
+            color: #cbd5e1;
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1e40af, #2563eb);
+            border: none;
+            color: white;
+            padding: 0.9rem 2.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 40px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px -8px rgba(37, 99, 235, 0.5);
+        }
+
+        /* Footer - Black theme */
+        .footer {
+            background: #000000;
+            padding: 3rem 1.5rem 2rem;
+            border-top: 1px solid #0f172a;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand p {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            line-height: 1.6;
+        }
+
+        .footer-links h4 {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        .footer-links a {
+            display: block;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #3b82f6;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            background: #0f172a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3b82f6;
+            transition: all 0.2s;
+            border: 1px solid #1e293b;
+            text-decoration: none;
+        }
+
+        .footer-social a:hover {
+            background: #3b82f6;
+            color: #000000;
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #0f172a;
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .footer-social {
+                justify-content: center;
+            }
+            .story-stats {
+                justify-content: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Partners Section Background */
+        .partners-bg {
+            background: #000000;
+        }
+    </style>
+</head>
+<body>
+
+      <!-- Navigation -->
+  <!-- NAVBAR - Insert right after <body> tag -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">Tomercon Developers <span>LLP</span></a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="strength.html">Strength</a>
+            <a href="ecosystem.html">Ecosystem</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+    </div>
+</nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <div class="page-badge">✦ ABOUT TOMERCON DEVELOPERS LLP</div>
+            <h1 class="page-title">Building the Future of Digital Ecosystems</h1>
+            <p class="page-subtitle">We are a team of passionate technologists, designers, and strategists dedicated to building enterprise-grade solutions that drive real business impact across education, sports, and corporate sectors.</p>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="section-container">
+        <div class="story-grid">
+            <div class="story-text">
+                <h3>Our Journey</h3>
+                <p>Tomercon Developers LLP was founded in 2020 with a simple yet powerful vision: to help organizations harness the full potential of technology. What started as a small team of passionate developers has grown into a trusted technology partner for enterprises across education, sports, and corporate sectors.</p>
+                <p>Over the years, we've delivered 100+ successful projects, built lasting relationships with 50+ enterprise clients, and established ourselves as a leader in building complete digital ecosystems. Our approach combines technical excellence with deep industry understanding, ensuring every solution we deliver creates measurable business value.</p>
+                <p>Today, we serve clients across 12+ countries, providing enterprise-grade solutions that power mission-critical operations. From athlete management platforms to learning management systems and organizational workflows, our technology runs the systems that matter most.</p>
+            </div>
+            <div class="story-image">
+                <img class="story-photo" src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tomercon Developers Office">
+                <div class="story-image-content">
+                    <i class="fas fa-building"></i>
+                    <h4>Headquartered in Kozhikode</h4>
+                    <p>Serving clients globally with enterprise-grade solutions across 12+ countries</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision Section -->
+    <section class="section-container">
+        <div class="section-header">
+            <div class="section-badge">OUR PURPOSE</div>
+            <h2 class="section-title">Mission & Vision</h2>
+            <p class="section-subtitle">Guided by a clear purpose and ambitious vision for the future</p>
+        </div>
+        <div class="mv-grid">
+            <div class="mv-card">
+                <div class="mv-icon"><i class="fas fa-bullseye"></i></div>
+                <h3>Our Mission</h3>
+                <p>To empower organizations with innovative, scalable, and secure technology solutions that streamline operations, enhance productivity, and drive sustainable growth. We are committed to delivering excellence through deep industry expertise and unwavering dedication to client success.</p>
+            </div>
+            <div class="mv-card">
+                <div class="mv-icon"><i class="fas fa-eye"></i></div>
+                <h3>Our Vision</h3>
+                <p>To become the most trusted technology partner for enterprises worldwide, recognized for building complete digital ecosystems that transform how organizations operate. We envision a future where every business, regardless of size, has access to enterprise-grade technology that unlocks their full potential.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Partners Section -->
+    <section class="section-container partners-bg" style="background: #000000;">
+        <div class="section-header">
+            <div class="section-badge">OUR ECOSYSTEM</div>
+            <h2 class="section-title">Trusted Partners</h2>
+            <p class="section-subtitle">Collaborating with industry leaders to deliver comprehensive enterprise solutions</p>
+        </div>
+        
+        <div class="partners-grid">
+            <div class="partner-card"><div class="partner-logo"><i class="fas fa-cloud"></i></div><h4>CloudScale Technologies</h4><span class="partner-type">Cloud Partner</span><p>AWS Advanced Consulting Partner providing scalable cloud infrastructure.</p><div class="partner-stats"><div class="partner-stat"><div class="partner-stat-number">2022</div><div class="partner-stat-label">Since</div></div><div class="partner-stat"><div class="partner-stat-number">15+</div><div class="partner-stat-label">Projects</div></div></div></div>
+            <div class="partner-card"><div class="partner-logo"><i class="fas fa-shield-alt"></i></div><h4>SecureNet Systems</h4><span class="partner-type">Security Partner</span><p>Enterprise-grade cybersecurity solutions ensuring data protection.</p><div class="partner-stats"><div class="partner-stat"><div class="partner-stat-number">2021</div><div class="partner-stat-label">Since</div></div><div class="partner-stat"><div class="partner-stat-number">20+</div><div class="partner-stat-label">Projects</div></div></div></div>
+            <div class="partner-card"><div class="partner-logo"><i class="fas fa-chart-pie"></i></div><h4>DataForge Analytics</h4><span class="partner-type">Data Partner</span><p>Advanced analytics and business intelligence solutions.</p><div class="partner-stats"><div class="partner-stat"><div class="partner-stat-number">2023</div><div class="partner-stat-label">Since</div></div><div class="partner-stat"><div class="partner-stat-number">8+</div><div class="partner-stat-label">Projects</div></div></div></div>
+            <div class="partner-card"><div class="partner-logo"><i class="fas fa-mobile-alt"></i></div><h4>NextGen Mobile</h4><span class="partner-type">Mobile Partner</span><p>Cross-platform mobile development for seamless iOS/Android experiences.</p><div class="partner-stats"><div class="partner-stat"><div class="partner-stat-number">2022</div><div class="partner-stat-label">Since</div></div><div class="partner-stat"><div class="partner-stat-number">12+</div><div class="partner-stat-label">Projects</div></div></div></div>
+        </div>
+        
+        <div class="partners-cta">
+            <p><i class="fas fa-handshake" style="color: #3b82f6; margin-right: 8px;"></i> Interested in becoming a technology partner?</p>
+            <a href="contact.html" class="btn-outline-teal">Partner With Us →</a>
+        </div>
+    </section>
+
+   <!-- Our Leadership Section - 50/50 Alignment with White Description Text -->
+<section class="section-container">
+    <div class="section-header">
+        <div class="section-badge">OUR LEADERSHIP</div>
+        <h2 class="section-title">Meet the Partners</h2>
+        <p class="section-subtitle">Guided by experienced leaders committed to innovation and excellence</p>
+    </div>
+    
+    <div class="leadership-grid">
+        <!-- Leader 1 -->
+        <div class="leader-card">
+            <div class="leader-image">
+                <img src="images/shameem-haldoon.png" alt="Shameem Haldoon">
+            </div>
+            <div class="leader-info">
+                <h3>SHAMEEM HALDOON P</h3>
+                <p class="leader-title">CEO</p>
+                <p class="leader-bio-white">Change markets business environment, the key to success lies. In today dynamic environment, the success of any organization depends on technological adaptability and strategic innovation.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Leader 2 -->
+        <div class="leader-card">
+            <div class="leader-image">
+                <img src="images/muhamed-salih-kp.png" alt="Muhamed Salih K.P.">
+            </div>
+            <div class="leader-info">
+                <h3>MUHAMED SALIH K.P.</h3>
+                <p class="leader-title">DESIGNATED PARTNER</p>
+                <p class="leader-bio-white">Change markets business environment, the key to success lies. In today dynamic environment, the success of any organization depends on technological adaptability and strategic innovation.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 4rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.02)); border-radius: 20px; border: 1px solid rgba(59, 130, 246, 0.1);">
+        <p style="color: #cbd5e1; font-size: 0.95rem;"><i class="fas fa-building" style="color: #3b82f6; margin-right: 8px;"></i> Together, our designated partners bring extensive expertise in technology and business strategy, guiding Tomercon Developers LLP toward its vision of building digital ecosystems that run organizations.</p>
+    </div>
+</section>
+
+<style>
+    /* Leadership Section - 50/50 Alignment */
+    .leadership-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .leader-card {
+        display: flex;
+        align-items: center;
+        gap: 3rem;
+        background: transparent;
+        border-bottom: 1px solid #1e2a3a;
+        padding: 1.5rem 0;
+        transition: all 0.3s ease;
+    }
+
+    /* 50/50 split - both columns take equal width */
+    .leader-image {
+        flex: 1;
+        width: 50%;
+        max-width: 278px;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #111827;
+        border: 1px solid #2d3a4a;
+        aspect-ratio: 1 / 1;
+    }
+
+    .leader-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s ease;
+    }
+
+    .leader-card:hover .leader-image img {
+        transform: scale(1.03);
+    }
+
+    .leader-info {
+        flex: 1;
+        width: 50%;
+    }
+
+    .leader-info h3 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 0.25rem;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+    }
+
+    .leader-title {
+        font-size: 0.9rem;
+        color: #3b82f6;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-bottom: 1rem;
+        font-weight: 500;
+    }
+
+    /* White color for description text */
+    .leader-bio-white {
+        color: #ffffff !important;
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+        max-width: 100%;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 1.2rem;
+    }
+
+    .social-links a {
+        color: #64748b;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .social-links a:hover {
+        color: #3b82f6;
+        transform: translateY(-3px);
+    }
+
+    /* Responsive - Stack on mobile */
+    @media (max-width: 768px) {
+        .leader-card {
+            flex-direction: column;
+            text-align: center;
+            gap: 1.5rem;
+        }
+        
+        .leader-image {
+            width: 3000px;
+            max-width: 3600px;
+        }
+        
+        .leader-info {
+            width: 100%;
+            text-align: center;
+        }
+        
+        .leader-info h3 {
+            font-size: 1.5rem;
+        }
+        
+        .social-links {
+            justify-content: center;
+        }
+        
+        .leader-bio-white {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+</style>
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>Ready to Start Your Journey With Us?</h2>
+        <p>Let's discuss how Tomercon Developers LLP can help transform your organization with innovative technology solutions.</p>
+        <a href="contact.html" class="btn-primary">Work With Us →</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo" style="font-size: 1.2rem;">Tomercon Developers LLP<span>.</span></div>
+                <p>Building technology that runs organizations across education, sports, and corporate sectors. Enterprise-grade solutions delivered with excellence.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <a href="about.html">About Us</a>
+                <a href="services.html">Services</a>
+                <a href="strength.html">Our Strength</a>
+                <a href="ecosystem.html">Ecosystem</a>
+            </div>
+            <div class="footer-links">
+                <h4>Support</h4>
+                <a href="contact.html">Contact Us</a>
+                <a href="#">Help Center</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="footer-links">
+                <h4>Connect</h4>
+                <a href="#"><i class="fas fa-envelope" style="margin-right: 0.5rem;"></i> hello@tomercon.com</a>
+                <a href="#"><i class="fas fa-phone" style="margin-right: 0.5rem;"></i> +91 62350 55807</a>
+                <a href="#"><i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i> Kozhikode, Kerala</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Tomercon Developers LLP — Technology That Runs Organizations. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        (function(){
+            // Navbar scroll effect
+            window.addEventListener('scroll', () => {
+                const nb = document.getElementById('navbar');
+                if(window.scrollY > 50) nb.classList.add('scrolled');
+                else nb.classList.remove('scrolled');
+            });
+
+            // GSAP Animations (keeping all original animations)
+            gsap.registerPlugin(ScrollTrigger);
+
+            gsap.from('.page-badge', { duration: 0.8, y: 40, opacity: 1, ease: 'power2.out' });
+            gsap.from('.page-title', { duration: 0.8, y: 40, opacity: 1, delay: 0.15, ease: 'power2.out' });
+            gsap.from('.page-subtitle', { duration: 0.8, y: 40, opacity: 1, delay: 0.3, ease: 'power2.out' });
+
+            gsap.from('.story-text', { scrollTrigger: { trigger: '.story-grid', start: 'top 80%' }, duration: 0.9, x: -50, opacity: 1, ease: 'power3.out' });
+            gsap.from('.story-image', { scrollTrigger: { trigger: '.story-grid', start: 'top 80%' }, duration: 0.9, x: 50, opacity: 1, ease: 'power3.out' });
+            gsap.from('.partner-card', { scrollTrigger: { trigger: '.partners-grid', start: 'top 80%' }, duration: 0.7, y: 50, opacity: 1, stagger: 0.12, ease: 'power3.out' });
+            gsap.from('.partners-cta', { scrollTrigger: { trigger: '.partners-cta', start: 'top 85%' }, duration: 0.6, y: 30, opacity: 1, ease: 'power2.out' });
+            gsap.from('.mv-card', { scrollTrigger: { trigger: '.mv-grid', start: 'top 80%' }, duration: 0.8, y: 60, opacity: 1, stagger: 0.2, ease: 'back.out(1.2)' });
+            gsap.from('.leader-card', { scrollTrigger: { trigger: '.leadership-grid', start: 'top 80%' }, duration: 0.8, y: 50, opacity: 1, stagger: 0.15, ease: 'power3.out' });
+            gsap.from('.cta h2, .cta p, .cta .btn-primary', { scrollTrigger: { trigger: '.cta', start: 'top 80%' }, duration: 0.6, y: 25, opacity: 1, stagger: 0.1, ease: 'power2.out' });
+
+            // Mobile menu
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            let mobileNav = null;
+            if(mobileBtn) {
+                mobileBtn.addEventListener('click', () => {
+                    if(!mobileNav) {
+                        mobileNav = document.createElement('div');
+                        mobileNav.style.cssText = 'display:flex; flex-direction:column; padding:1rem 2rem; background:rgba(0,0,0,0.98); backdrop-filter:blur(16px); position:fixed; top:70px; left:0; right:0; z-index:999; border-bottom:1px solid #1e2a3a;';
+                        mobileNav.innerHTML = `<a href="index.html" style="padding:0.7rem 0; color:#e0e4e8; text-decoration:none;">Home</a>
+                            <a href="about.html" style="padding:0.7rem 0; color:#3b82f6;">About</a>
+                            <a href="services.html" style="padding:0.7rem 0; color:#e0e4e8;">Services</a>
+                            <a href="strength.html" style="padding:0.7rem 0; color:#e0e4e8;">Strength</a>
+                            <a href="ecosystem.html" style="padding:0.7rem 0; color:#e0e4e8;">Ecosystem</a>
+                            <a href="contact.html" style="padding:0.7rem 0; color:#e0e4e8;">Contact</a>`;
+                        document.body.appendChild(mobileNav);
+                    }
+                    mobileNav.style.display = mobileNav.style.display === 'flex' ? 'none' : 'flex';
+                });
+            }
+            window.addEventListener('resize', () => { if(window.innerWidth > 768 && mobileNav) mobileNav.style.display = 'none'; });
+        })();
+    </script>
+</body>
+</html>

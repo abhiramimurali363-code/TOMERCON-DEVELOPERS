@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="javascript" href="navbar.js">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Tomercon Developers LLP | Our Services</title>
+    
+    <!-- Professional font stack -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+     <!-- EXTERNAL NAVBAR CSS - SAME FOR ALL PAGES -->
+    <link rel="stylesheet" href="navbar.css">
+    
+    <!-- YOUR PAGE SPECIFIC STYLES ONLY (NO NAVBAR CSS HERE!) -->
+    <style>
+        /* ONLY your page-specific styles - NO navbar styling here */
+        body {
+            background-color: #000000;
+            font-family: 'Inter', sans-serif;
+            color: #eef2f5;
+        }
+    
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000000;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: #eef2f5;
+            overflow-x: hidden;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        h1, h2, h3, h4, .logo, .section-title {
+            font-family: 'Manrope', 'Inter', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 8px;
+            height: 8px;
+            background: #3b82f6;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 1.5px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.2s ease, width 0.2s, height 0.2s;
+        }
+
+        /* Navigation - Black/Blue Theme */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            background: rgba(0, 0, 0, 0.85);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(0, 0, 0, 0.98);
+            border-bottom-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff, #3b82f6, #1e40af);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: #e0e4e8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            position: relative;
+            letter-spacing: 0.01em;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #1e40af);
+            transition: width 0.25s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #3b82f6;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+        }
+
+        /* Page Header - Black/Blue Theme */
+        .page-header {
+            min-height: 55vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(147deg, rgba(0, 0, 0, 0.92) 0%, rgb(0 10 20 / 57%) 100%), url(https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1600);
+            background-position: center;
+            margin-top: 70px;
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .page-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            font-weight: 500;
+        }
+
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .page-subtitle {
+            font-size: 1rem;
+            color: #cbd5e1;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Section Styles */
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .section-subtitle {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Services Grid - Black/Blue Theme */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        @media (max-width: 992px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .service-card {
+            background: #0a0a0a;
+            border: 1px solid #1e2a3a;
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #1e40af, #3b82f6, #1e40af);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .service-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: #3b82f6;
+            background: #111111;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: #111827;
+            border: 1px solid #2d3a4a;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: all 0.4s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.05);
+            border-color: #3b82f6;
+            background: #1e293b;
+        }
+
+        .service-icon i {
+            font-size: 2rem;
+            color: #3b82f6;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon i {
+            color: #60a5fa;
+            transform: scale(1.1);
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: #ffffff;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .service-card:hover h3 {
+            color: #3b82f6;
+        }
+
+        .service-card p {
+            color: #cbd5e1;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .service-features li {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            padding: 0.4rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .service-features li i {
+            color: #3b82f6;
+            font-size: 0.7rem;
+        }
+
+        /* Process Section - Black/Blue Theme */
+        .process-section {
+            background: #030712;
+            padding: 5rem 2rem;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 2rem auto 0;
+        }
+
+        @media (max-width: 992px) {
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background: #0a0a0a;
+            border-radius: 16px;
+            border: 1px solid #1e2a3a;
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover {
+            transform: translateY(-6px);
+            border-color: #3b82f6;
+            background: #111111;
+        }
+
+        .step-number {
+            width: 56px;
+            height: 56px;
+            background: #111827;
+            border: 1px solid #2d3a4a;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #3b82f6;
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover .step-number {
+            background: #1e293b;
+            border-color: #3b82f6;
+            color: #60a5fa;
+            transform: scale(1.05);
+        }
+
+        .process-step h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .process-step p {
+            color: #cbd5e1;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* Tech Section - Black/Blue Theme */
+        .tech-section {
+            padding: 5rem 2rem;
+            background: #000000;
+        }
+
+        .tech-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            margin-top: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tech-item {
+            text-align: center;
+            padding: 1rem;
+            min-width: 100px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .tech-icon {
+            width: 70px;
+            height: 70px;
+            background: #111827;
+            border: 1px solid #2d3a4a;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover .tech-icon {
+            background: #1e293b;
+            border-color: #3b82f6;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.15);
+        }
+
+        .tech-icon i {
+            font-size: 2rem;
+            color: #3b82f6;
+        }
+
+        .tech-item span {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+        }
+
+        /* CTA Section - Black/Blue Theme */
+        .cta {
+            padding: 5rem 2rem;
+            background: #030712;
+            text-align: center;
+            border-top: 1px solid #1e2a3a;
+            border-bottom: 1px solid #1e2a3a;
+        }
+
+        .cta h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.3rem);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .cta p {
+            color: #cbd5e1;
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1e40af, #2563eb);
+            border: none;
+            color: white;
+            padding: 0.9rem 2.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 40px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px -8px rgba(37, 99, 235, 0.5);
+        }
+
+        /* Footer - Black/Blue Theme */
+        .footer {
+            background: #000000;
+            padding: 3rem 2rem 2rem;
+            border-top: 1px solid #0f172a;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand p {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            line-height: 1.6;
+        }
+
+        .footer-links h4 {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        .footer-links a {
+            display: block;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #3b82f6;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            background: #0f172a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3b82f6;
+            transition: all 0.2s;
+            border: 1px solid #1e293b;
+            text-decoration: none;
+        }
+
+        .footer-social a:hover {
+            background: #3b82f6;
+            color: #000000;
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #0f172a;
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .footer-social {
+                justify-content: center;
+            }
+        }
+
+        /* Animation Keyframes */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Auto-scrolling Carousel Styles */
+        .tech-carousel-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .tech-track {
+            display: flex;
+            gap: 2rem;
+            width: max-content;
+            animation: scrollTech 30s linear infinite;
+            padding: 1rem 0.5rem;
+        }
+
+        .tech-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollTech {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        ::-webkit-scrollbar {
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111827;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #60a5fa;
+        }
+    </style>
+</head>
+<body>
+
+
+ <!-- NAVBAR - SAME HTML FOR ALL PAGES -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Tomercon Developers <span>LLP</span></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="strength.html">Strength</a>
+                <a href="ecosystem.html">Ecosystem</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <div class="page-badge">✦ WHAT WE OFFER</div>
+            <h1 class="page-title">Enterprise Technology Services</h1>
+            <p class="page-subtitle">Comprehensive digital solutions tailored to your industry needs. From mobile apps to complete organizational systems, we deliver excellence at every step.</p>
+        </div>
+    </section>
+
+    <!-- Services Grid Section - Hover Effect with Relevant High-Quality Images -->
+<section class="section-container">
+    <div class="section-header">
+        <div class="section-badge">CORE SERVICES</div>
+        <h2 class="section-title">Solutions That Drive Business Growth</h2>
+        <p class="section-subtitle">We specialize in building complete digital ecosystems that transform how organizations operate</p>
+    </div>
+    <div class="services-grid">
+        <!-- Service 1: Mobile App Development -->
+        <div class="service-card">
+            <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+            <h3>Mobile App Development</h3>
+            <p>Enterprise-grade mobile solutions for iOS and Android platforms with seamless user experiences and robust security.</p>
+            <div class="service-hover-overlay">
+                <div class="overlay-bg" style="background-image: url('https://images.pexels.com/photos/699122/pexels-photo-699122.jpeg?auto=compress&cs=tinysrgb&w=1200');"></div>
+                <div class="overlay-content">
+                    <div class="overlay-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h4>Mobile App Development</h4>
+                    <ul class="overlay-features">
+                        <li><i class="fas fa-check-circle"></i> Native & Cross-Platform Apps</li>
+                        <li><i class="fas fa-check-circle"></i> Enterprise Security Integration</li>
+                        <li><i class="fas fa-check-circle"></i> Offline Capabilities</li>
+                        <li><i class="fas fa-check-circle"></i> Real-time Sync & Analytics</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 2: Sports Technology -->
+        <div class="service-card">
+            <div class="service-icon"><i class="fas fa-futbol"></i></div>
+            <h3>Sports Technology</h3>
+            <p>Complete digital ecosystems for athlete management, performance analytics, tournament organization, and fan engagement.</p>
+            <div class="service-hover-overlay">
+                <div class="overlay-bg" style="background-image: url('https://images.pexels.com/photos/1752757/pexels-photo-1752757.jpeg?auto=compress&cs=tinysrgb&w=1200');"></div>
+                <div class="overlay-content">
+                    <div class="overlay-icon"><i class="fas fa-futbol"></i></div>
+                    <h4>Sports Technology</h4>
+                    <ul class="overlay-features">
+                        <li><i class="fas fa-check-circle"></i> Athlete Performance Tracking</li>
+                        <li><i class="fas fa-check-circle"></i> Tournament Management Systems</li>
+                        <li><i class="fas fa-check-circle"></i> Team & Coach Portals</li>
+                        <li><i class="fas fa-check-circle"></i> Live Scoring & Analytics</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 3: Education Technology -->
+        <div class="service-card">
+            <div class="service-icon"><i class="fas fa-graduation-cap"></i></div>
+            <h3>Education Technology</h3>
+            <p>Intelligent learning management systems and administrative platforms that transform educational institutions.</p>
+            <div class="service-hover-overlay">
+                <div class="overlay-bg" style="background-image: url('https://images.pexels.com/photos/5905700/pexels-photo-5905700.jpeg?auto=compress&cs=tinysrgb&w=1200');"></div>
+                <div class="overlay-content">
+                    <div class="overlay-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h4>Education Technology</h4>
+                    <ul class="overlay-features">
+                        <li><i class="fas fa-check-circle"></i> Learning Management Systems</li>
+                        <li><i class="fas fa-check-circle"></i> Student Information Systems</li>
+                        <li><i class="fas fa-check-circle"></i> Virtual Classroom Solutions</li>
+                        <li><i class="fas fa-check-circle"></i> Assessment & Grading Tools</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 4: Organizational Systems -->
+        <div class="service-card">
+            <div class="service-icon"><i class="fas fa-building"></i></div>
+            <h3>Organizational Systems</h3>
+            <p>Custom enterprise software for workflow automation, resource management, and operational excellence.</p>
+            <div class="service-hover-overlay">
+                <div class="overlay-bg" style="background-image: url('https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1200');"></div>
+                <div class="overlay-content">
+                    <div class="overlay-icon"><i class="fas fa-building"></i></div>
+                    <h4>Organizational Systems</h4>
+                    <ul class="overlay-features">
+                        <li><i class="fas fa-check-circle"></i> ERP & CRM Solutions</li>
+                        <li><i class="fas fa-check-circle"></i> Workflow Automation</li>
+                        <li><i class="fas fa-check-circle"></i> HR & Payroll Systems</li>
+                        <li><i class="fas fa-check-circle"></i> Business Intelligence Dashboards</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 5: Cloud Solutions -->
+        <div class="service-card">
+            <div class="service-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <h3>Cloud Solutions</h3>
+            <p>Scalable cloud infrastructure and migration services to help your business leverage the power of cloud computing.</p>
+            <div class="service-hover-overlay">
+                <div class="overlay-bg" style="background-image: url('https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg?auto=compress&cs=tinysrgb&w=1200');"></div>
+                <div class="overlay-content">
+                    <div class="overlay-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <h4>Cloud Solutions</h4>
+                    <ul class="overlay-features">
+                        <li><i class="fas fa-check-circle"></i> Cloud Migration Services</li>
+                        <li><i class="fas fa-check-circle"></i> DevOps & CI/CD Pipeline</li>
+                        <li><i class="fas fa-check-circle"></i> Serverless Architecture</li>
+                        <li><i class="fas fa-check-circle"></i> 24/7 Cloud Monitoring</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 6: Data Analytics & AI -->
+        <div class="service-card">
+            <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+            <h3>Data Analytics & AI</h3>
+            <p>Advanced analytics and artificial intelligence solutions to unlock insights from your business data.</p>
+            <div class="service-hover-overlay">
+                <div class="overlay-bg" style="background-image: url('https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=1200');"></div>
+                <div class="overlay-content">
+                    <div class="overlay-icon"><i class="fas fa-chart-line"></i></div>
+                    <h4>Data Analytics & AI</h4>
+                    <ul class="overlay-features">
+                        <li><i class="fas fa-check-circle"></i> Business Intelligence Dashboards</li>
+                        <li><i class="fas fa-check-circle"></i> Predictive Analytics</li>
+                        <li><i class="fas fa-check-circle"></i> AI-Powered Insights</li>
+                        <li><i class="fas fa-check-circle"></i> Data Visualization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Styles for Hover Overlay with High-Quality Images -->
+<style>
+    .service-card {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        min-height: 320px;
+        background: #0a0a0a;
+        border: 1px solid #1e2a3a;
+        border-radius: 20px;
+        padding: 2rem;
+    }
+
+    /* Hide the front bullet points completely */
+    .service-features {
+        display: none;
+    }
+
+    /* Hover Overlay - appears on hover with background image and bullet points */
+    .service-hover-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s ease;
+        z-index: 15;
+        overflow: hidden;
+    }
+
+    .service-card:hover .service-hover-overlay {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Background Image with high quality and dark overlay */
+    .overlay-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        transition: transform 0.5s ease;
+    }
+
+    .service-card:hover .overlay-bg {
+        transform: scale(1.05);
+    }
+
+    .overlay-bg::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 20, 40, 0.92) 100%);
+    }
+
+    /* Overlay Content - Bullet points appear here */
+    .overlay-content {
+        position: relative;
+        z-index: 2;
+        height: 100%;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .overlay-icon {
+        width: 50px;
+        height: 50px;
+        background: rgba(59, 130, 246, 0.2);
+        border: 1px solid rgba(59, 130, 246, 0.5);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.8rem;
+    }
+
+    .overlay-icon i {
+        font-size: 1.5rem;
+        color: #3b82f6;
+    }
+
+    .overlay-content h4 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 0.8rem;
+        letter-spacing: -0.01em;
+    }
+
+    /* Bullet points - ONLY visible on hover inside the overlay */
+    .overlay-features {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .overlay-features li {
+        color: #e2e8f0;
+        font-size: 0.75rem;
+        padding: 0.3rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .overlay-features li i {
+        color: #3b82f6;
+        font-size: 0.7rem;
+        width: 16px;
+    }
+
+    /* Fade out front content on hover */
+    .service-card .service-icon,
+    .service-card h3,
+    .service-card p {
+        transition: all 0.3s ease;
+    }
+
+    .service-card:hover .service-icon,
+    .service-card:hover h3,
+    .service-card:hover p {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    /* Card styling - compact */
+    .service-card {
+        min-height: 320px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .service-icon {
+        width: 60px;
+        height: 60px;
+        background: #111827;
+        border: 1px solid #2d3a4a;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.2rem;
+        transition: all 0.3s ease;
+    }
+
+    .service-icon i {
+        font-size: 1.6rem;
+        color: #3b82f6;
+    }
+
+    .service-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.6rem;
+        color: #ffffff;
+        font-weight: 600;
+    }
+
+    .service-card p {
+        color: #cbd5e1;
+        line-height: 1.5;
+        font-size: 0.85rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .service-card {
+            min-height: 300px;
+            padding: 1.5rem;
+        }
+        .overlay-content {
+            padding: 1rem;
+        }
+        .overlay-features li {
+            font-size: 0.7rem;
+            padding: 0.2rem 0;
+        }
+        .overlay-content h4 {
+            font-size: 0.95rem;
+        }
+        .service-card h3 {
+            font-size: 1rem;
+        }
+        .service-card p {
+            font-size: 0.75rem;
+        }
+    }
+</style>
+<!-- Tech Stack Section - SEAMLESS AUTO SCROLLING CAROUSEL WITH LOGOS -->
+<section class="tech-section" style="background: #000000; padding: 4rem 0; overflow: hidden;">
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 1.5rem;">
+        <div class="section-header">
+            <div class="section-badge">TECHNOLOGY STACK</div>
+            <h2 class="section-title">Tools & Technologies We Use</h2>
+            <p class="section-subtitle">Leveraging modern, enterprise-grade technologies to build robust solutions</p>
+        </div>
+    </div>
+
+    <div class="tech-carousel-wrapper" style="margin-top: 3rem; position: relative; width: 100%; overflow: hidden;">
+        <!-- Gradient Fade Edges -->
+        <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 120px; background: linear-gradient(to right, #000000, transparent); z-index: 10; pointer-events: none;"></div>
+        <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 120px; background: linear-gradient(to left, #000000, transparent); z-index: 10; pointer-events: none;"></div>
+        
+        <!-- Seamless Scrolling Track - Duplicated items for infinite scroll -->
+        <div class="tech-track" id="techTrack">
+            <!-- Set 1 -->
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" class="tech-logo"><span>React</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" alt="Vue.js" class="tech-logo"><span>Vue.js</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" alt="Angular" class="tech-logo"><span>Angular</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" class="tech-logo"><span>Node.js</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="tech-logo"><span>Python</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" class="tech-logo"><span>Java/Spring</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" class="tech-logo"><span>PostgreSQL</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" class="tech-logo"><span>MongoDB</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" class="tech-logo"><span>Docker</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" alt="AWS" class="tech-logo"><span>AWS</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes" class="tech-logo"><span>Kubernetes</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" class="tech-logo"><span>Figma</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" class="tech-logo"><span>TypeScript</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js" class="tech-logo"><span>Next.js</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" class="tech-logo"><span>TensorFlow</span></div>
+            
+            <!-- Set 2 - Duplicate for seamless loop -->
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" class="tech-logo"><span>React</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" alt="Vue.js" class="tech-logo"><span>Vue.js</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" alt="Angular" class="tech-logo"><span>Angular</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" class="tech-logo"><span>Node.js</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="tech-logo"><span>Python</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" class="tech-logo"><span>Java/Spring</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" class="tech-logo"><span>PostgreSQL</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" class="tech-logo"><span>MongoDB</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" class="tech-logo"><span>Docker</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" alt="AWS" class="tech-logo"><span>AWS</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes" class="tech-logo"><span>Kubernetes</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" class="tech-logo"><span>Figma</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" class="tech-logo"><span>TypeScript</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js" class="tech-logo"><span>Next.js</span></div>
+            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" class="tech-logo"><span>TensorFlow</span></div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Tech Carousel Styles */
+    .tech-carousel-wrapper {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+    
+    .tech-track {
+        display: flex;
+        gap: 2rem;
+        width: max-content;
+        animation: scrollTechLinear 25s linear infinite;
+    }
+    
+    /* Smooth, continuous animation - no pauses */
+    @keyframes scrollTechLinear {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+    
+    /* Pause animation on hover */
+    .tech-track:hover {
+        animation-play-state: paused;
+    }
+    
+    /* Tech Item Styles with Logos */
+    .tech-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 100px;
+        padding: 1rem;
+        background: #0a0a0a;
+        border: 1px solid #1e2a3a;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .tech-item:hover {
+        transform: translateY(-5px);
+        border-color: #3b82f6;
+        background: #111111;
+        box-shadow: 0 10px 25px -8px rgba(59, 130, 246, 0.2);
+    }
+    
+    .tech-logo {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+    }
+    
+    .tech-item:hover .tech-logo {
+        transform: scale(1.1);
+    }
+    
+    .tech-item span {
+        font-size: 0.75rem;
+        color: #cbd5e1;
+        font-weight: 500;
+        font-family: 'Inter', sans-serif;
+        transition: color 0.3s ease;
+    }
+    
+    .tech-item:hover span {
+        color: #3b82f6;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .tech-item {
+            min-width: 80px;
+            padding: 0.75rem;
+        }
+        .tech-logo {
+            width: 40px;
+            height: 40px;
+        }
+        .tech-item span {
+            font-size: 0.65rem;
+        }
+        .tech-track {
+            gap: 1rem;
+        }
+        [style*="width: 120px"] {
+            width: 60px !important;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .tech-item {
+            min-width: 70px;
+        }
+        .tech-logo {
+            width: 35px;
+            height: 35px;
+        }
+    }
+    
+    /* For Next.js dark logo - add white background */
+    .tech-item img[alt="Next.js"] {
+        background: #ffffff;
+        border-radius: 8px;
+        padding: 4px;
+    }
+</style>
+
+<script>
+    // Ensure seamless infinite scrolling
+    document.addEventListener('DOMContentLoaded', function() {
+        const track = document.querySelector('.tech-track');
+        if (track) {
+            // Clone items to ensure smooth infinite scroll if needed
+            const items = track.innerHTML;
+            // Already have 2 sets, but ensure enough width
+            if (track.scrollWidth < window.innerWidth * 2) {
+                track.innerHTML = items + items;
+            }
+        }
+    });
+</script>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>Ready to Build Your Next Solution?</h2>
+        <p>Let's discuss how Tomercon Developers LLP can help bring your vision to life with our enterprise technology services.</p>
+        <a href="contact.html" class="btn-primary">Start Your Project →</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo" style="font-size: 1.2rem;">Tomercon Developers <span>LLP</span></div>
+                <p>Building technology that runs organizations across education, sports, and corporate sectors. Enterprise-grade solutions delivered with excellence.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <a href="about.html">About Us</a>
+                <a href="services.html">Services</a>
+                <a href="strength.html">Our Strength</a>
+                <a href="ecosystem.html">Ecosystem</a>
+            </div>
+            <div class="footer-links">
+                <h4>Support</h4>
+                <a href="contact.html">Contact Us</a>
+                <a href="#">Help Center</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="footer-links">
+                <h4>Connect</h4>
+                <a href="#"><i class="fas fa-envelope" style="margin-right: 0.5rem;"></i> hello@tomercon.com</a>
+                <a href="#"><i class="fas fa-phone" style="margin-right: 0.5rem;"></i> +91 62350 55807</a>
+                <a href="#"><i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i> Kozhikode, Kerala</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Tomercon Developers LLP — Technology That Runs Organizations. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        (function(){
+            // Custom Cursor
+            const cursor = document.querySelector('.cursor');
+            const follower = document.querySelector('.cursor-follower');
+            if(cursor && follower) {
+                document.addEventListener('mousemove', (e) => {
+                    cursor.style.transform = `translate(${e.clientX - 4}px, ${e.clientY - 4}px)`;
+                    follower.style.transform = `translate(${e.clientX - 20}px, ${e.clientY - 20}px)`;
+                });
+                const interactive = document.querySelectorAll('.btn-primary, .service-card, .process-step, .tech-item, a');
+                interactive.forEach(el => {
+                    el.addEventListener('mouseenter', () => { 
+                        follower.style.width = '56px'; 
+                        follower.style.height = '56px'; 
+                        follower.style.borderColor = 'rgba(59,130,246,0.6)'; 
+                    });
+                    el.addEventListener('mouseleave', () => { 
+                        follower.style.width = '40px'; 
+                        follower.style.height = '40px'; 
+                        follower.style.borderColor = 'rgba(59,130,246,0.3)'; 
+                    });
+                });
+            }
+
+            // Navbar scroll
+            window.addEventListener('scroll', () => {
+                const nb = document.getElementById('navbar');
+                if(window.scrollY > 50) nb.classList.add('scrolled');
+                else nb.classList.remove('scrolled');
+            });
+
+            // GSAP Animations
+            gsap.registerPlugin(ScrollTrigger);
+
+            gsap.from('.page-badge', { duration: 0.8, y: 40, opacity: 1, ease: 'power2.out' });
+            gsap.from('.page-title', { duration: 0.8, y: 40, opacity: 1, delay: 0.15, ease: 'power2.out' });
+            gsap.from('.page-subtitle', { duration: 0.8, y: 40, opacity: 1, delay: 0.3, ease: 'power2.out' });
+
+            gsap.from('.service-card', {
+                scrollTrigger: { trigger: '.services-grid', start: 'top 85%' },
+                duration: 0.7, y: 50, opacity: 1, stagger: 0.1, ease: 'power3.out'
+            });
+
+            gsap.from('.tech-item', {
+                scrollTrigger: { trigger: '.tech-track', start: 'top 85%' },
+                duration: 0.6, scale: 0.8, opacity: 1, stagger: 0.06, ease: 'back.out(0.5)'
+            });
+
+            gsap.from('.cta h2, .cta p, .cta .btn-primary', {
+                scrollTrigger: { trigger: '.cta', start: 'top 80%' },
+                duration: 0.6, y: 25, opacity: 1, stagger: 0.1, ease: 'power2.out'
+            });
+
+            // Icon float animations
+            document.querySelectorAll('.service-icon i').forEach((icon, index) => {
+                icon.style.animation = `float ${4 + index}s ease-in-out infinite`;
+                icon.style.animationDelay = `${index * 0.2}s`;
+            });
+
+            // Mobile menu
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            let mobileNav = null;
+            if(mobileBtn) {
+                mobileBtn.addEventListener('click', () => {
+                    if(!mobileNav) {
+                        mobileNav = document.createElement('div');
+                        mobileNav.style.cssText = 'display:flex; flex-direction:column; padding:1rem 2rem; background:#000000; backdrop-filter:blur(16px); position:fixed; top:70px; left:0; right:0; z-index:999; border-bottom:1px solid #1e2a3a;';
+                        mobileNav.innerHTML = `
+                            <a href="index.html" style="padding:0.7rem 0; color:#e0e8ef; text-decoration:none;">Home</a>
+                            <a href="about.html" style="padding:0.7rem 0; color:#e0e8ef;">About</a>
+                            <a href="services.html" style="padding:0.7rem 0; color:#3b82f6;">Services</a>
+                            <a href="strength.html" style="padding:0.7rem 0; color:#e0e8ef;">Strength</a>
+                            <a href="ecosystem.html" style="padding:0.7rem 0; color:#e0e8ef;">Ecosystem</a>
+                            <a href="contact.html" style="padding:0.7rem 0; color:#e0e8ef;">Contact</a>
+                        `;
+                        document.body.appendChild(mobileNav);
+                    }
+                    mobileNav.style.display = mobileNav.style.display === 'flex' ? 'none' : 'flex';
+                });
+            }
+
+            // Footer social hover animation
+            document.querySelectorAll('.footer-social a').forEach(icon => {
+                icon.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) rotate(360deg)';
+                    this.style.transition = 'all 0.5s ease';
+                });
+                icon.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) rotate(0deg)';
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

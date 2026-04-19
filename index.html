@@ -1,17 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <!-- Add these lines inside your existing <head> tag -->
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="javascript" href="navbar.js">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Tomercon Developers LLP | Digital Ecosystems for Modern Organizations</title>
-    <!-- Google Fonts: Professional, modern sans-serif -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-    <!-- Font Awesome 6 (Free Icons) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Tomercon Developers LLP | Technology That Runs Organizations</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- AOS (Animate on Scroll) Library for smooth scroll animations -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- EXTERNAL NAVBAR CSS - SAME FOR ALL PAGES -->
+    <link rel="stylesheet" href="navbar.css">
+
+    <!-- YOUR PAGE SPECIFIC STYLES ONLY (NO NAVBAR CSS HERE!) -->
     <style>
-        * {
+        /* ONLY your page-specific styles - NO navbar styling here */
+        body {
+            background-color: #000000;
+            font-family: 'Inter', sans-serif;
+            color: #eef2f5;
+        }
+
+        < !-- GSAP for Scroll Animations --><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script><style>* {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -19,806 +37,1224 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #000000;   /* deep black background */
-            color: #eef5ff;
-            line-height: 1.5;
-            scroll-behavior: smooth;
+            background-color: #000000;
+            /* Pure Black Background */
+            color: #e0e4e8;
+            /* Light gray-white for readability */
+            overflow-x: hidden;
         }
 
-        /* custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #111;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #2c7da0;
-            border-radius: 6px;
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
         }
 
-        /* container */
+        /* Container */
         .container {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
         }
 
-        /* header / navigation */
+        /* Navigation - Black with Blue Accents */
         .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 2rem;
-            flex-wrap: wrap;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(8px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(44, 125, 160, 0.3);
-        }
-        .logo h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #a8e6cf, #3b9eff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: -0.5px;
-        }
-        .logo p {
-            font-size: 0.75rem;
-            color: #7aa2c4;
-            letter-spacing: 0.5px;
-        }
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #eef5ff;
-            font-weight: 500;
-            transition: 0.3s;
-            font-size: 1rem;
-        }
-        .nav-links a:hover {
-            color: #4cd9ff;
-            border-bottom: 2px solid #4cd9ff;
-            padding-bottom: 4px;
-        }
-
-        /* hero section with background image added */
-        .hero {
-            min-height: 85vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            background: radial-gradient(circle at 10% 30%, #0a1a1f, #000000);
-            border-bottom: 1px solid rgba(72, 187, 255, 0.2);
-        }
-        /* Hero background image overlay */
-        .hero::before {
-            content: "";
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background-image: url('https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1600');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.2;
-            z-index: 0;
-            pointer-events: none;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 1px solid #0a2a3a;
+            transition: all 0.3s ease;
+            padding: 0 2rem;
         }
+
+        .navbar.scrolled {
+            background: rgba(0, 0, 0, 0.98);
+            border-bottom-color: #0066cc;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            background: linear-gradient(135deg, #ffffff, #3b82f6, #1e40af);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: #e0e4e8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #1e40af);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #3b82f6;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #e0e4e8;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section - Black Overlay with Blue Tint */
+        .hero {
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: url('https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover no-repeat fixed;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(74deg, rgb(0 0 0 / 80%) 0%, rgb(0 10 20 / 79%) 100%);
+            z-index: 1;
+        }
+
         .hero-content {
             position: relative;
             z-index: 2;
+            max-width: 1000px;
+            padding: 0 1.5rem;
+            margin: 0 auto;
         }
-        .hero-content h2 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #c0f2ff, #63d0ff);
+
+        .hero-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            font-weight: 500;
+        }
+
+        .hero-content h1 {
+            font-size:4rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content h1 span {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-        .hero-content p {
-            font-size: 1.3rem;
-            color: #b9d9ff;
-            max-width: 700px;
-            margin: 0 auto;
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
         }
-        .hero-btn {
-            margin-top: 2rem;
-            display: inline-block;
-            background: #0f3b4c;
-            padding: 0.8rem 2rem;
-            border-radius: 40px;
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1e40af, #2563eb);
             color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
             font-weight: 600;
             text-decoration: none;
-            transition: 0.3s;
-            border: 1px solid #2c7da0;
-        }
-        .hero-btn:hover {
-            background: #1f6e8c;
-            transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(0,180,255,0.2);
-        }
-
-        /* Tabs Section */
-        .tabs-section {
-            padding: 5rem 0;
-            background: #000;
-        }
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 2.5rem;
-            color: #eef5ff;
-            letter-spacing: -0.5px;
-            position: relative;
-        }
-        .section-title span {
-            background: linear-gradient(135deg, #48cae4, #0077b6);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .tabs-container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        .tab-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.8rem;
-            margin-bottom: 3rem;
-            border-bottom: 1px solid #1f3a44;
-            padding-bottom: 0.5rem;
-        }
-        .tab-btn {
-            background: transparent;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             border: none;
-            padding: 0.8rem 1.8rem;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #b9d9ff;
             cursor: pointer;
-            transition: all 0.25s ease;
-            border-radius: 40px;
-            font-family: 'Inter', sans-serif;
-        }
-        .tab-btn i {
-            margin-right: 8px;
-        }
-        .tab-btn.active {
-            background: #0f3b4c;
-            color: white;
-            box-shadow: 0 2px 8px rgba(0,150,255,0.3);
-            border: 1px solid #48cae4;
-        }
-        .tab-btn:hover:not(.active) {
-            background: #0a1f28;
-            color: #7ad0ff;
-        }
-        .tab-content {
-            background: rgba(10, 25, 30, 0.5);
-            backdrop-filter: blur(2px);
-            border-radius: 32px;
-            padding: 2rem;
-            transition: all 0.3s;
-            border: 1px solid rgba(72, 202, 228, 0.2);
-        }
-        .tab-pane {
-            display: none;
-            animation: fadeInUp 0.4s ease forwards;
-        }
-        .tab-pane.active-pane {
-            display: block;
-        }
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .service-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 2rem;
-        }
-        .service-card {
-            background: rgba(0,0,0,0.65);
-            border-radius: 28px;
-            padding: 1.8rem;
-            transition: 0.25s;
-            border: 1px solid #1e4f64;
-            text-align: center;
-        }
-        .service-card i {
-            font-size: 2.8rem;
-            color: #48cae4;
-            margin-bottom: 1rem;
-        }
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.8rem;
-        }
-        .service-card p {
-            color: #cbdbe6;
-        }
-        .strength-box {
-            background: linear-gradient(145deg, #05161e, #000c10);
-            padding: 2rem;
-            border-radius: 32px;
-            text-align: center;
-            border-left: 5px solid #2c7da0;
-        }
-        .role-eco {
-            background: #05161e;
-            padding: 1.8rem;
-            border-radius: 32px;
-            margin-top: 1rem;
+            display: inline-block;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
         }
 
-        /* image showcase / projects */
-        .projects-showcase {
-            padding: 4rem 0;
-            background: #030b0e;
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            box-shadow: 0 15px 30px rgba(37, 99, 235, 0.5);
         }
-        .project-cards {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #3b82f6;
+            color: #3b82f6;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
         }
-        .project-item {
-            background: #0c1c22;
-            border-radius: 28px;
-            overflow: hidden;
-            width: 300px;
-            transition: transform 0.3s ease;
-            border: 1px solid #1f556b;
+
+        .btn-outline:hover {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: #60a5fa;
+            color: #60a5fa;
         }
-        .project-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 30px -12px rgba(0,180,255,0.2);
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            color: #3b82f6;
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
         }
-        .project-img {
-            width: 100%;
-            height: 200px;
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            40% {
+                transform: translateX(-50%) translateY(-15px);
+            }
+
+            60% {
+                transform: translateX(-50%) translateY(-8px);
+            }
+        }
+
+        /* Section Styles - Black Backgrounds */
+        .section {
+            padding: 5rem 0;
+            position: relative;
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
         }
-        .project-item h4, .project-item p {
-            padding: 0.8rem 1.2rem;
+
+        .section-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.94);
+            z-index: 1;
         }
-        .project-item h4 {
-            font-size: 1.3rem;
-            font-weight: 700;
+
+        .section .container {
+            position: relative;
+            z-index: 2;
         }
-        .badge {
-            background: #0f3b4c;
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-badge {
             display: inline-block;
-            padding: 0.2rem 0.8rem;
-            border-radius: 30px;
             font-size: 0.7rem;
-            margin-left: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 700;
+            color: #ffffff;
             margin-bottom: 1rem;
         }
 
-        /* contact section */
-        .contact-section {
-            padding: 5rem 0;
+        .section-title span {
+            color: #3b82f6;
+        }
+
+        .section-subtitle {
+            color: #cbd5e1;
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Stats Section - Black Cards with Blue Borders */
+        .stats-section {
+            background-image: url('https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1600');
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: #0a0a0a;
+            backdrop-filter: blur(10px);
+            border: 1px solid #1e2a3a;
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            border-color: #3b82f6;
+            background: #111111;
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.2);
+        }
+
+        .stat-icon {
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, #111827, #1e293b);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            border: 1px solid #2d3a4a;
+        }
+
+        .stat-icon i {
+            font-size: 1.8rem;
+            color: #3b82f6;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            color: #3b82f6;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Services Section - Bento Grid Black/Blue */
+        .services-section {
+            background-image: url('https://images.pexels.com/photos/3184298/pexels-photo-3184298.jpeg?auto=compress&cs=tinysrgb&w=1600');
+        }
+
+        /* Timeline Section */
+        .timeline-section {
             background: #000000;
         }
-        .contact-grid {
+
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, #1e40af, #1e2a3a, #1e40af);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-content {
+            width: 42%;
+            background: #0a0a0a;
+            border: 1px solid #1e2a3a;
+            border-radius: 20px;
+            padding: 1.75rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: auto;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: auto;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            width: 18px;
+            height: 18px;
+            background: #0a0a0a;
+            border: 1px solid #1e2a3a;
+            transform: rotate(45deg);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -10px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -10px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 18px;
+            height: 18px;
+            background: #1e293b;
+            border: 3px solid #3b82f6;
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .timeline-date {
+            color: #3b82f6;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .timeline-content h3 {
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .timeline-content p {
+            color: #cbd5e1;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            background-image: url('https://images.pexels.com/photos/3184423/pexels-photo-3184423.jpeg?auto=compress&cs=tinysrgb&w=1600');
+        }
+
+        .testimonials-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-            align-items: start;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
         }
-        .contact-info {
-            background: rgba(10, 25, 30, 0.6);
-            backdrop-filter: blur(4px);
-            border-radius: 32px;
+
+        .testimonial-card {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid #1e2a3a;
+            border-radius: 24px;
             padding: 2rem;
-            border: 1px solid rgba(72, 202, 228, 0.3);
         }
-        .contact-info h3 {
-            font-size: 1.8rem;
+
+        .testimonial-quote {
+            color: #3b82f6;
+            font-size: 2rem;
+            margin-bottom: 1.25rem;
+            opacity: 0.8;
+        }
+
+        .testimonial-text {
+            color: #e0e4e8;
+            font-size: 1rem;
+            line-height: 1.7;
             margin-bottom: 1.5rem;
-            color: #7ad0ff;
         }
-        .contact-detail {
+
+        .testimonial-author {
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
         }
-        .contact-detail i {
-            font-size: 1.8rem;
-            color: #48cae4;
-            width: 40px;
-        }
-        .contact-detail p, .contact-detail a {
-            color: #eef5ff;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: 0.2s;
-        }
-        .contact-detail a:hover {
-            color: #4cd9ff;
-        }
-        .social-links {
-            display: flex;
-            gap: 1.2rem;
-            margin-top: 2rem;
-        }
-        .social-links a {
-            background: #0f3b4c;
-            width: 44px;
-            height: 44px;
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            display: inline-flex;
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.3s;
-            color: white;
-            font-size: 1.4rem;
-        }
-        .social-links a:hover {
-            background: #2c7da0;
-            transform: translateY(-4px);
-        }
-        .contact-form {
-            background: rgba(10, 25, 30, 0.6);
-            backdrop-filter: blur(4px);
-            border-radius: 32px;
-            padding: 2rem;
-            border: 1px solid rgba(72, 202, 228, 0.3);
-        }
-        .contact-form h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: #7ad0ff;
-        }
-        .input-group {
-            margin-bottom: 1.2rem;
-        }
-        .input-group input, .input-group textarea {
-            width: 100%;
-            padding: 0.9rem 1.2rem;
-            background: #07161e;
-            border: 1px solid #1f556b;
-            border-radius: 28px;
-            font-family: 'Inter', sans-serif;
+            color: #ffffff;
+            font-weight: 600;
             font-size: 1rem;
-            color: #eef5ff;
-            transition: 0.25s;
-        }
-        .input-group input:focus, .input-group textarea:focus {
-            outline: none;
-            border-color: #48cae4;
-            box-shadow: 0 0 0 2px rgba(72,202,228,0.2);
-        }
-        .input-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-        .submit-btn {
-            background: #0f3b4c;
-            border: none;
-            padding: 0.8rem 2rem;
-            font-weight: 700;
-            border-radius: 40px;
-            color: white;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.3s;
-            width: 100%;
-            font-family: 'Inter', sans-serif;
-        }
-        .submit-btn:hover {
-            background: #1f6e8c;
-            transform: translateY(-2px);
-        }
-        .map-placeholder {
-            margin-top: 2rem;
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid #2c7da0;
-        }
-        .map-placeholder iframe {
-            width: 100%;
-            height: 220px;
-            border: 0;
-            filter: grayscale(0.2) brightness(0.8);
         }
 
-        /* footer */
-        footer {
-            background: #010101;
-            padding: 2rem;
+        .author-info h4 {
+            color: #ffffff;
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+        }
+
+        .author-info p {
+            color: #3b82f6;
+            font-size: 0.8rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #030712, #000000);
+            padding: 4rem 0;
             text-align: center;
-            border-top: 1px solid #1f4e62;
-            margin-top: 2rem;
-        }
-        .footer-content p {
-            color: #9bb7d4;
+            border-top: 1px solid #1e2a3a;
+            border-bottom: 1px solid #1e2a3a;
         }
 
-        /* responsive */
+        .cta-section h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .cta-section p {
+            color: #cbd5e1;
+            max-width: 550px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background: #000000;
+            padding: 3.5rem 0 1.5rem;
+            border-top: 1px solid #0f172a;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-brand .logo {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .footer-social a {
+            width: 38px;
+            height: 38px;
+            background: rgba(59, 130, 246, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3b82f6;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .footer-social a:hover {
+            background: #3b82f6;
+            color: #000000;
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            color: #ffffff;
+            font-size: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #3b82f6;
+        }
+
+        .footer-contact h4 {
+            color: #ffffff;
+            font-size: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .footer-contact p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .footer-contact i {
+            color: #3b82f6;
+            width: 18px;
+            margin-top: 3px;
+        }
+
+        .footer-bottom {
+            padding-top: 1.5rem;
+            border-top: 1px solid #0f172a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-bottom-links a {
+            color: #64748b;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.2s;
+        }
+
+        .footer-bottom-links a:hover {
+            color: #3b82f6;
+        }
+
+        /* Service Cards Styling */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .service-card-item {
+            background: #0a0a0a;
+            backdrop-filter: blur(10px);
+            border: 1px solid #1e2a3a;
+            border-radius: 24px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card-item:hover {
+            transform: translateY(-8px);
+            border-color: #3b82f6;
+            background: #111111;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .service-card-item:hover .service-icon {
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            border-color: #3b82f6;
+        }
+
+        .service-card-item:hover .service-icon i {
+            color: #ffffff;
+        }
+
+        .service-card-item:hover h3 {
+            color: #3b82f6;
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #111827, #1e293b);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            border: 1px solid #2d3a4a;
+            transition: all 0.3s ease;
+        }
+
+        .service-icon i {
+            font-size: 1.8rem;
+            color: #3b82f6;
+            transition: all 0.3s ease;
+        }
+
+        .service-card-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: color 0.3s ease;
+        }
+
+        .service-card-item p {
+            color: #cbd5e1;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .navbar {
+                padding: 0 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .hero-buttons {
                 flex-direction: column;
+                align-items: center;
                 gap: 1rem;
+            }
+
+            .btn-primary,
+            .btn-outline {
+                width: 100%;
+                max-width: 280px;
                 text-align: center;
             }
-            .hero-content h2 {
-                font-size: 2.2rem;
-            }
-            .tab-buttons {
-                gap: 0.5rem;
-            }
-            .tab-btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.85rem;
-            }
-            .container {
-                padding: 0 1.2rem;
-            }
-            .contact-grid {
+
+            .stats-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer-contact p {
+                justify-content: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-bottom-links {
+                justify-content: center;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px;
+                margin-right: 0;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content::before,
+            .timeline-item:nth-child(even) .timeline-content::before {
+                left: -10px;
+                right: auto;
+                border-right: none;
+                border-top: none;
+                border-left: 1px solid #1e2a3a;
+                border-bottom: 1px solid #1e2a3a;
+            }
+
+            .timeline-dot {
+                left: 30px;
+                top: 30px;
             }
         }
 
-        /* image placeholders with unsplash like high-quality stock photos (free to use) */
-        .img-edu {
-            background-image: url('https://images.pexels.com/photos/256468/pexels-photo-256468.jpeg?auto=compress&cs=tinysrgb&w=600');
-        }
-        .img-sports {
-            background-image: url('https://images.pexels.com/photos/209977/pexels-photo-209977.jpeg?auto=compress&cs=tinysrgb&w=600');
-        }
-        .img-mobile {
-            background-image: url('https://images.pexels.com/photos/699122/pexels-photo-699122.jpeg?auto=compress&cs=tinysrgb&w=600');
-        }
-        .img-org {
-            background-image: url('https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=600');
-        }
-        .img-ecosystem {
-            background-image: url('https://images.pexels.com/photos/577585/pexels-photo-577585.jpeg?auto=compress&cs=tinysrgb&w=600');
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1.25rem;
+            }
+
+            .section {
+                padding: 3.5rem 0;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .service-card-item {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<header>
-    <nav class="navbar">
-        <div class="logo">
-            <h1>TOMERCON DEVELOPERS LLP</h1>
-            <p>Technology Backbone · Digital Ecosystems</p>
+    <!-- NAVBAR - SAME HTML FOR ALL PAGES -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Tomercon Developers <span>LLP</span></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="strength.html">Strength</a>
+                <a href="ecosystem.html">Ecosystem</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
         </div>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#tabs">Services</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#strength">Core Strength</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
     </nav>
-</header>
 
-<main>
-    <!-- Hero Section with background image overlay (added via pseudo-element) -->
-    <section id="home" class="hero">
-        <div class="hero-content" data-aos="fade-up">
-            <h2>We Build Technology That Runs Organizations</h2>
-            <p>Scalable mobile applications, sports tech, education platforms & organizational systems — creating complete digital ecosystems.</p>
-            <a href="#tabs" class="hero-btn">Explore Solutions <i class="fas fa-arrow-right"></i></a>
-        </div>
-    </section>
+    <!-- Add this div wrapper around your existing content -->
+    <div class="page-content" style="padding-top: 80px;">
 
-    <!-- Tabbed Services Section -->
-    <section id="tabs" class="tabs-section">
-        <div class="container">
-            <div class="section-title" data-aos="fade-right">Our <span>Core Services</span></div>
-            <div class="tabs-container" data-aos="fade-up">
-                <div class="tab-buttons">
-                    <button class="tab-btn active" data-tab="tab1"><i class="fas fa-mobile-alt"></i> Mobile Apps</button>
-                    <button class="tab-btn" data-tab="tab2"><i class="fas fa-futbol"></i> Sports Tech</button>
-                    <button class="tab-btn" data-tab="tab3"><i class="fas fa-chalkboard-user"></i> EdTech Platforms</button>
-                    <button class="tab-btn" data-tab="tab4"><i class="fas fa-building"></i> Org Systems</button>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <div class="hero-badge">✦ TECHNOLOGY THAT RUNS ORGANIZATIONS</div>
+                <h1>We Build <span>Digital Ecosystems</span><br>Not Just Apps</h1>
+                <p class="hero-description">Tomercon Developers LLP creates scalable mobile applications, sports tech
+                    solutions, and organizational systems that power modern enterprises across the globe.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn-primary">Explore Our Solutions →</a>
+                    <a href="#" class="btn-outline">Schedule a Consultation</a>
                 </div>
-                <div class="tab-content">
-                    <!-- Tab 1: Mobile Application Development -->
-                    <div id="tab1" class="tab-pane active-pane">
-                        <div class="service-grid">
-                            <div class="service-card">
-                                <i class="fas fa-rocket"></i>
-                                <h3>High-Performance Apps</h3>
-                                <p>We build high-performance mobile applications designed for scalability and user engagement. Native & cross-platform solutions.</p>
-                            </div>
-                            <div class="service-card">
-                                <i class="fas fa-chart-line"></i>
-                                <h3>Scalable Architecture</h3>
-                                <p>Cloud-native backends, real-time sync, and analytics to drive growth for modern organizations.</p>
-                            </div>
-                            <div class="service-card">
-                                <i class="fas fa-users"></i>
-                                <h3>User-Centric Design</h3>
-                                <p>Intuitive interfaces, seamless UX, and accessibility for diverse user bases across industries.</p>
+            </div>
+            <div class="scroll-indicator"
+                onclick="document.querySelector('.stats-section').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="section stats-section">
+            <div class="section-overlay"></div>
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-badge">PROVEN IMPACT</div>
+                    <h2 class="section-title">Trusted by <span>Industry Leaders</span></h2>
+                    <p class="section-subtitle">Delivering measurable results through innovative technology solutions
+                    </p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-rocket"></i></div>
+                        <div class="stat-number">150+</div>
+                        <div class="stat-label">Projects Delivered</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Enterprise Clients</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-globe"></i></div>
+                        <div class="stat-number">12+</div>
+                        <div class="stat-label">Countries Served</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-trophy"></i></div>
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Client Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="section services-section">
+            <div class="section-overlay"></div>
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-badge">WHAT WE DELIVER</div>
+                    <h2 class="section-title">Comprehensive <span>Solutions</span></h2>
+                    <p class="section-subtitle">End-to-end technology services tailored to your business needs</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card-item">
+                        <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+                        <h3>Mobile Application Development</h3>
+                        <p>High-performance mobile applications designed for scalability and exceptional user engagement
+                            across iOS and Android platforms.</p>
+                    </div>
+                    <div class="service-card-item">
+                        <div class="service-icon"><i class="fas fa-futbol"></i></div>
+                        <h3>Sports Technology</h3>
+                        <p>Athlete management systems, performance tracking, and event coordination platforms for sports
+                            organizations of all sizes.</p>
+                    </div>
+                    <div class="service-card-item">
+                        <div class="service-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3>EdTech Platforms</h3>
+                        <p>Learning management systems and tools that simplify communication and academic administration
+                            for educational institutions.</p>
+                    </div>
+                    <div class="service-card-item">
+                        <div class="service-icon"><i class="fas fa-building"></i></div>
+                        <h3>Enterprise Systems</h3>
+                        <p>Custom ERP, workflow automation, and business intelligence solutions for modern organizations
+                            seeking digital transformation.</p>
+                    </div>
+                    <div class="service-card-item">
+                        <div class="service-icon"><i class="fas fa-cloud"></i></div>
+                        <h3>Cloud Infrastructure</h3>
+                        <p>Scalable cloud architecture with 99.9% uptime and comprehensive disaster recovery planning
+                            for mission-critical applications.</p>
+                    </div>
+                    <div class="service-card-item">
+                        <div class="service-icon"><i class="fas fa-chart-pie"></i></div>
+                        <h3>Data Analytics</h3>
+                        <p>Actionable insights and intelligence dashboards to drive strategic business decisions and
+                            uncover growth opportunities.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section class="section timeline-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-badge">OUR JOURNEY</div>
+                    <h2 class="section-title">Building <span>Excellence</span></h2>
+                    <p class="section-subtitle">A timeline of innovation and growth since our founding</p>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2021</div>
+                            <h3>Company Founded</h3>
+                            <p>Tomercon Developers LLP established with a vision to build integrated digital ecosystems
+                                for modern enterprises.</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2022</div>
+                            <h3>First Enterprise Client</h3>
+                            <p>Secured first Fortune 500 client and delivered comprehensive ERP transformation project.
+                            </p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2023</div>
+                            <h3>Sports Tech Launch</h3>
+                            <p>Launched flagship sports management platform now used by leagues across 5 countries.</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2024</div>
+                            <h3>Global Expansion</h3>
+                            <p>Expanded operations to 12+ countries and crossed 150+ successful project deliveries.</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="section testimonials-section">
+            <div class="section-overlay"></div>
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-badge">TESTIMONIALS</div>
+                    <h2 class="section-title">What Our <span>Clients Say</span></h2>
+                    <p class="section-subtitle">Trusted by industry leaders across the globe</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
+                        <p class="testimonial-text">"Tomercon Developers transformed our entire operational
+                            infrastructure. Their ecosystem approach connected all our systems seamlessly, resulting in
+                            40% improved efficiency across departments."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">RJ</div>
+                            <div class="author-info">
+                                <h4>Rajesh Kumar</h4>
+                                <p>CTO, TechMahindra Solutions</p>
                             </div>
                         </div>
                     </div>
-                    <!-- Tab 2: Sports Technology Solutions -->
-                    <div id="tab2" class="tab-pane">
-                        <div class="service-grid">
-                            <div class="service-card">
-                                <i class="fas fa-medal"></i>
-                                <h3>Athlete Management</h3>
-                                <p>Systems for athlete tracking, performance metrics, and personalized training modules.</p>
-                            </div>
-                            <div class="service-card">
-                                <i class="fas fa-calendar-alt"></i>
-                                <h3>Event Coordination</h3>
-                                <p>Tournament scheduling, venue management, real-time scoreboards and live updates.</p>
-                            </div>
-                            <div class="service-card">
-                                <i class="fas fa-heartbeat"></i>
-                                <h3>Performance Tracking</h3>
-                                <p>Data-driven dashboards for coaches & players, injury prevention and recovery analytics.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Tab 3: Education Technology Platforms -->
-                    <div id="tab3" class="tab-pane">
-                        <div class="service-grid">
-                            <div class="service-card">
-                                <i class="fas fa-graduation-cap"></i>
-                                <h3>Smart Learning Tools</h3>
-                                <p>Interactive content delivery, gamified assessments, and progress tracking for institutions.</p>
-                            </div>
-                            <div class="service-card">
-                                <i class="fas fa-comments"></i>
-                                <h3>Seamless Communication</h3>
-                                <p>Parent-teacher portals, real-time notifications, and collaborative classroom environments.</p>
-                            </div>
-                            <div class="service-card">
-                                <i class="fas fa-database"></i>
-                                <h3>Academic Management</h3>
-                                <p>Centralized student records, attendance automation, and examination workflows.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Tab 4: Organizational Systems -->
-                    <div id="tab4" class="tab-pane">
-                        <div class="service-grid">
-                            <div class="service-card">
-                                <i class="fas fa-chart-pie"></i>
-                                <h3>Streamlined Operations</h3>
-                                <p>ERP solutions, custom CRMs, and operational dashboards to maximize efficiency.</p>
-                            </div>
-                            <div class="service-card">
-                                <i class="fas fa-shield-alt"></i>
-                                <h3>Security & Compliance</h3>
-                                <p>Enterprise-grade security, role-based access, and data protection standards.</p>
-                            </div>
-                            <div class="service-card">
-                                <i class="fas fa-microchip"></i>
-                                <h3>Automation Tools</h3>
-                                <p>Workflow automation, smart reporting, and AI-driven insights for decision making.</p>
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
+                        <p class="testimonial-text">"The sports management platform built by Tomercon has revolutionized
+                            how we manage our leagues. From athlete registration to live scoring, everything works
+                            flawlessly."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">SP</div>
+                            <div class="author-info">
+                                <h4>Sarah Patel</h4>
+                                <p>Director, Premier Sports League</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Key Strength + Ecosystem Role -->
-    <section id="strength" class="container" style="padding: 2rem 0 3rem 0;">
-        <div class="strength-box" data-aos="zoom-in">
-            <i class="fas fa-globe" style="font-size: 3rem; color: #48cae4; margin-bottom: 1rem; display: inline-block;"></i>
-            <h2 style="font-size: 2rem; margin-bottom: 0.75rem;">⚡ KEY STRENGTH</h2>
-            <p style="font-size: 1.2rem; font-weight: 500;">We build complete digital ecosystems, not just standalone applications.</p>
-            <div class="role-eco" style="margin-top: 2rem;">
-                <i class="fas fa-microchip" style="margin-right: 10px;"></i>
-                <strong>ROLE IN ECOSYSTEM:</strong> Acts as the technology backbone for all ventures and platforms, ensuring seamless integration, future-ready architecture, and unified data flow.
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Ready to Build Your Digital Ecosystem?</h2>
+                <p>Let's discuss how Tomercon Developers LLP can power your organization's digital transformation
+                    journey.</p><a href="#" class="btn-primary">Get Started Today →</a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Projects Showcase with relevant photos -->
-    <section id="projects" class="projects-showcase">
-        <div class="container">
-            <div class="section-title" data-aos="fade-right">Featured <span>Projects & Solutions</span></div>
-            <div class="project-cards" data-aos="fade-up">
-                <div class="project-item">
-                    <div class="project-img img-edu"></div>
-                    <h4><i class="fas fa-school"></i> EduNexus Platform</h4>
-                    <p>Complete learning ecosystem for 50+ schools with real-time parent engagement and smart analytics.</p>
-                    <span class="badge">EdTech</span>
-                </div>
-                <div class="project-item">
-                    <div class="project-img img-sports"></div>
-                    <h4><i class="fas fa-running"></i> SportSync Pro</h4>
-                    <p>Athlete management & tournament system used by state-level sports academies for tracking performance.</p>
-                    <span class="badge">Sports Tech</span>
-                </div>
-                <div class="project-item">
-                    <div class="project-img img-mobile"></div>
-                    <h4><i class="fas fa-mobile-alt"></i> FieldForce Mobile</h4>
-                    <p>Enterprise field service app with offline sync, real-time job dispatch for logistics firms.</p>
-                    <span class="badge">Mobile App</span>
-                </div>
-                <div class="project-item">
-                    <div class="project-img img-org"></div>
-                    <h4><i class="fas fa-landmark"></i> OrgFlow Suite</h4>
-                    <p>Complete organizational management system integrating HR, inventory, and client portals.</p>
-                    <span class="badge">Org Systems</span>
-                </div>
-                <div class="project-item">
-                    <div class="project-img img-ecosystem"></div>
-                    <h4><i class="fas fa-cloud-upload-alt"></i> Tomercon Cloud Ecosystem</h4>
-                    <p>Unified data backbone connecting all ventures into one intelligent platform.</p>
-                    <span class="badge">Ecosystem</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Extra: About Tomercon Developers summary -->
-    <div class="container" style="margin: 2rem auto; text-align: center;" data-aos="fade-up">
-        <div style="background: rgba(15,59,76,0.2); border-radius: 48px; padding: 2rem; border: 1px solid #1f6e8c;">
-            <h3><i class="fas fa-code-branch"></i> Tomercon Developers LLP</h3>
-            <p style="max-width: 800px; margin: 1rem auto;">A technology company focused on building mobile applications and digital systems for modern organizations. We develop scalable and practical solutions across education, sports, and organizational management. From startups to enterprises — we deliver innovation that lasts.</p>
-            <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 1rem;">
-                <span><i class="fas fa-check-circle" style="color:#48cae4"></i> 50+ Enterprise Clients</span>
-                <span><i class="fas fa-check-circle" style="color:#48cae4"></i> 24/7 Support</span>
-                <span><i class="fas fa-check-circle" style="color:#48cae4"></i> Agile Development</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <div class="section-title" data-aos="fade-right">Get In <span>Touch</span></div>
-            <div class="contact-grid" data-aos="fade-up">
-                <!-- Left: contact info & details -->
-                <div class="contact-info">
-                    <h3><i class="fas fa-comment-dots"></i> Let's connect</h3>
-                    <p style="margin-bottom: 1.8rem;">Have a project in mind? Reach out and let’s build the next generation digital ecosystem together.</p>
-                    <div class="contact-detail">
-                        <i class="fas fa-map-marker-alt"></i> <p>Tomercon Developers, Thalancheri Paramba,Kozhikode, Kerala - 673003, India</p>
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand"><a href="index.html" class="logo">Tomercon Developers
+                            LLP<span>.</span></a>
+                        <p>Building technology that runs organizations across education, sports, and corporate sectors.
+                            Enterprise-grade solutions delivered with excellence.</p>
+                        <div class="footer-social"><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i
+                                    class="fab fa-github"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a
+                                href="#"><i class="fab fa-instagram"></i></a></div>
                     </div>
-                    <div class="contact-detail">
-                        <i class="fas fa-envelope"></i>
-                        <a href="mailto:hello@tomercon.com">hello@tomercon.com</a>
+                    <div class="footer-links">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Services</a></li>
+                            <li><a href="#">Our Strength</a></li>
+                            <li><a href="#">Ecosystem</a></li>
+                            <li><a href="#">Careers</a></li>
+                        </ul>
                     </div>
-                    <div class="contact-detail">
-                        <i class="fas fa-phone-alt"></i>
-                        <a href="tel:+15557890234">+1 (555) 789-0234</a>
+                    <div class="footer-links">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Case Studies</a></li>
+                            <li><a href="#">Insights</a></li>
+                            <li><a href="#">Documentation</a></li>
+                            <li><a href="#">Help Center</a></li>
+                        </ul>
                     </div>
-                    <div class="social-links">
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <div class="footer-contact">
+                        <h4>Contact Us</h4>
+                        <p><i class="fas fa-map-marker-alt"></i> Thalancheri Paramba, Kozhikode, Kerala - 673003</p>
+                        <p><i class="fas fa-phone-alt"></i> +91 62350 55807</p>
+                        <p><i class="fas fa-envelope"></i> hello@tomercon.com</p>
+                        <p><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</p>
                     </div>
                 </div>
-                <!-- Right: contact form -->
-                <div class="contact-form">
-                    <h3><i class="fas fa-paper-plane"></i> Send a message</h3>
-                    <form id="contactForm" action="#" method="post">
-                        <div class="input-group">
-                            <input type="text" placeholder="Full Name" required>
-                        </div>
-                        <div class="input-group">
-                            <input type="email" placeholder="Email Address" required>
-                        </div>
-                        <div class="input-group">
-                            <input type="text" placeholder="Company / Organization">
-                        </div>
-                        <div class="input-group">
-                            <textarea placeholder="Tell us about your requirements..."></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Send Inquiry <i class="fas fa-arrow-right"></i></button>
-                    </form>
-                    <div class="map-placeholder">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3172.332792286245!2d-122.084249684694!3d37.422065979825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fba02425dad8f%3A0x6c296c666193990!2sGoogleplex!5e0!3m2!1sen!2sus!4v1644240958811!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
+                <div class="footer-bottom">
+                    <p>© 2025 Tomercon Developers LLP — Technology That Runs Organizations. All rights reserved.</p>
+                    <div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a
+                            href="#">Cookie Policy</a></div>
                 </div>
             </div>
-        </div>
-    </section>
-</main>
+        </footer>
 
-<footer>
-    <div class="footer-content">
-        <p>&copy; 2026 Tomercon Developers LLP — Building technology that runs organizations. All rights reserved.</p>
-        <p style="margin-top: 0.5rem;"><i class="fas fa-envelope"></i> contact@tomercon.com &nbsp;|&nbsp; <i class="fas fa-phone-alt"></i> +1 (555) 789-0234</p>
-    </div>
-</footer>
+        <script>
+            window.addEventListener('scroll', () => { const navbar = document.getElementById('navbar'); if (window.scrollY > 50) navbar.classList.add('scrolled'); else navbar.classList.remove('scrolled'); });
+            gsap.registerPlugin(ScrollTrigger);
+            gsap.from('.hero-badge', { opacity: 1, y: 30, duration: 0.8, delay: 0.2 });
+            gsap.from('.hero-content h1', { opacity: 1, y: 30, duration: 0.8, delay: 0.4 });
+            gsap.from('.hero-description', { opacity: 1, y: 30, duration: 0.8, delay: 0.6 });
+            gsap.from('.hero-buttons', { opacity: 1, y: 30, duration: 0.8, delay: 0.8 });
+            gsap.from('.stat-card', { scrollTrigger: { trigger: '.stats-grid', start: 'top 80%' }, opacity: 1, y: 40, duration: 0.7, stagger: 0.1 });
+            gsap.from('.service-card-item', { scrollTrigger: { trigger: '.services-grid', start: 'top 80%' }, opacity: 1, scale: 0.95, duration: 0.7, stagger: 0.08 });
+            gsap.from('.timeline-item', { scrollTrigger: { trigger: '.timeline', start: 'top 80%' }, opacity: 1, x: -30, duration: 0.7, stagger: 0.15 });
+            gsap.from('.testimonial-card', { scrollTrigger: { trigger: '.testimonials-grid', start: 'top 80%' }, opacity: 1, y: 40, duration: 0.7, stagger: 0.1 });
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    // Initialize AOS (animate on scroll)
-    AOS.init({
-        duration: 800,
-        once: true,
-        offset: 100
-    });
-
-    // Tab switching logic with animations
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const panes = document.querySelectorAll('.tab-pane');
-
-    function activateTab(tabId) {
-        // hide all panes
-        panes.forEach(pane => {
-            pane.classList.remove('active-pane');
-        });
-        // show selected pane
-        const activePane = document.getElementById(tabId);
-        if(activePane) activePane.classList.add('active-pane');
-        
-        // update active button style
-        tabBtns.forEach(btn => {
-            btn.classList.remove('active');
-            if(btn.getAttribute('data-tab') === tabId) {
-                btn.classList.add('active');
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            let mobileNav = null;
+            if (mobileBtn) {
+                mobileBtn.addEventListener('click', () => {
+                    if (!mobileNav) {
+                        mobileNav = document.createElement('div');
+                        mobileNav.style.cssText = 'display: flex; flex-direction: column; padding: 1rem 2rem; background: rgba(0,0,0,0.98); backdrop-filter: blur(16px); position: fixed; top: 70px; left: 0; right: 0; z-index: 999; border-bottom: 1px solid #1e2a3a;';
+                        mobileNav.innerHTML = `<a href="#" style="padding: 0.7rem 0; color: #e0e4e8; text-decoration: none; border-bottom: 1px solid #1e2a3a;">Home</a><a href="#" style="padding: 0.7rem 0; color: #e0e4e8; text-decoration: none; border-bottom: 1px solid #1e2a3a;">About</a><a href="#" style="padding: 0.7rem 0; color: #e0e4e8; text-decoration: none; border-bottom: 1px solid #1e2a3a;">Services</a><a href="#" style="padding: 0.7rem 0; color: #e0e4e8; text-decoration: none; border-bottom: 1px solid #1e2a3a;">Strength</a><a href="#" style="padding: 0.7rem 0; color: #e0e4e8; text-decoration: none; border-bottom: 1px solid #1e2a3a;">Ecosystem</a><a href="#" style="padding: 0.7rem 0; color: #e0e4e8; text-decoration: none;">Contact</a>`;
+                        document.body.appendChild(mobileNav);
+                    }
+                    mobileNav.style.display = mobileNav.style.display === 'flex' ? 'none' : 'flex';
+                });
             }
-        });
-    }
-
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const tabId = btn.getAttribute('data-tab');
-            if(tabId) activateTab(tabId);
-        });
-    });
-
-    // smooth scroll for nav links including contact
-    const navLinks = document.querySelectorAll('.nav-links a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const targetId = this.getAttribute('href');
-            if(targetId && targetId !== '#') {
-                const targetElem = document.querySelector(targetId);
-                if(targetElem) {
-                    e.preventDefault();
-                    targetElem.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        });
-    });
-
-    // simple contact form alert (prevents page reload for demo)
-    const contactForm = document.getElementById('contactForm');
-    if(contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for reaching out! Our team will get back to you within 24 hours.');
-            contactForm.reset();
-        });
-    }
-</script>
+            window.addEventListener('resize', () => { if (window.innerWidth > 768 && mobileNav) mobileNav.style.display = 'none'; });
+        </script>
 </body>
+
 </html>
