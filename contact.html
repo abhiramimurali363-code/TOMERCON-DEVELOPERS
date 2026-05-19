@@ -35,7 +35,7 @@
             letter-spacing: -0.02em;
         }
 
-        /* Top Bar - Black/Blue Theme */
+        /* Top Bar - Contact Page Only */
         .top-bar {
             background: #030712;
             border-bottom: 1px solid #1e2a3a;
@@ -43,7 +43,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            z-index: 1001;
+            z-index: 1002;
             display: flex;
             justify-content: flex-end;
             align-items: center;
@@ -92,41 +92,43 @@
             border-color: #3b82f6;
         }
 
-        /* Navigation - Black/Blue Theme */
+        /* ========= NAVIGATION - FIXED FOR CONTACT PAGE WITH TOP-BAR ========= */
         .navbar {
             position: fixed;
-            top: 41px;
+            top: 48px;  /* Height of top-bar + small padding */
+            left: 0;
             width: 100%;
-            z-index: 1000;
-            backdrop-filter: blur(12px);
-            background: rgba(0, 0, 0, 0.85);
-            border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+            z-index: 1001;
+            backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 1px solid #0a2a3a;
             transition: all 0.3s ease;
         }
 
         .navbar.scrolled {
             background: rgba(0, 0, 0, 0.98);
-            border-bottom-color: rgba(59, 130, 246, 0.3);
+            border-bottom-color: #0066cc;
         }
 
         .nav-container {
-            max-width: 1400px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 0.8rem 2rem;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 70px;
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
             background: linear-gradient(135deg, #ffffff, #3b82f6, #1e40af);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             text-decoration: none;
-            letter-spacing: -0.02em;
         }
 
         .logo span {
@@ -146,9 +148,8 @@
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
-            transition: color 0.2s ease;
+            transition: all 0.3s ease;
             position: relative;
-            letter-spacing: 0.01em;
             font-family: 'Inter', sans-serif;
         }
 
@@ -160,7 +161,7 @@
             width: 0;
             height: 2px;
             background: linear-gradient(90deg, #3b82f6, #1e40af);
-            transition: width 0.25s ease;
+            transition: width 0.3s ease;
         }
 
         .nav-links a:hover::after,
@@ -177,23 +178,79 @@
             display: none;
             background: none;
             border: none;
-            color: white;
-            font-size: 1.5rem;
+            color: #e0e4e8;
+            font-size: 1.6rem;
             cursor: pointer;
+            z-index: 1001;
+            transition: color 0.2s ease;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-btn:hover {
+            color: #3b82f6;
+        }
+
+        /* Mobile Navigation Panel */
+        .mobile-nav-panel {
+            display: none;
+            position: fixed;
+            top: 118px; /* 48px (top-bar) + 70px (navbar) */
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid #1e2a3a;
+            z-index: 999;
+            flex-direction: column;
+            padding: 1rem 1.8rem;
+            gap: 0.2rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .mobile-nav-panel a {
+            padding: 0.9rem 0;
+            color: #e0e4e8;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 500;
+            border-bottom: 1px solid #1e2a3a;
+            transition: all 0.25s ease;
+            display: block;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .mobile-nav-panel a:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-nav-panel a.active {
+            color: #3b82f6;
+            padding-left: 0.5rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .mobile-nav-panel a:hover {
+            color: #3b82f6;
+            padding-left: 0.5rem;
         }
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .mobile-menu-btn { display: block; }
+            .nav-container { padding: 0 1.2rem; }
+            .logo { font-size: 1.3rem; }
             .top-bar {
                 padding: 0.5rem 1.5rem;
             }
             .navbar {
-                top: 41px;
+                top: 44px;
+            }
+            .mobile-nav-panel {
+                top: 114px;
             }
         }
 
-        /* Hero Section - Full Screen with Background Image */
+        /* Hero Section - Adjusted for top-bar + navbar */
         .hero-section {
             height: 100vh;
             width: 100%;
@@ -222,8 +279,6 @@
             z-index: 2;
             max-width: 900px;
             padding: 0 2rem;
-            opacity: 0;
-            animation: fadeInUp 1s ease-out forwards;
         }
 
         .hero-badge {
@@ -279,11 +334,6 @@
             cursor: pointer;
         }
 
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
             40% { transform: translateX(-50%) translateY(-15px); }
@@ -323,7 +373,7 @@
             letter-spacing: -0.02em;
         }
 
-        /* Contact Cards Grid - Black/Blue Theme */
+        /* Contact Cards Grid */
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -414,7 +464,7 @@
             color: #3b82f6;
         }
 
-        /* Form and Map Section - Black/Blue Theme */
+        /* Form and Map Section */
         .form-map-wrapper {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -524,10 +574,11 @@
             width: 100%;
             height: 100%;
             border: 0;
+            min-height: 450px;
             filter: grayscale(0.3) contrast(0.9);
         }
 
-        /* Footer - Black/Blue Theme */
+        /* Footer */
         .footer {
             background: #000000;
             padding: 2rem 2rem 1.5rem;
@@ -535,7 +586,7 @@
         }
 
         .footer-container {
-            max-width: 1400px;
+            max-width: 1280px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -553,6 +604,7 @@
         .footer-links {
             display: flex;
             gap: 1.5rem;
+            flex-wrap: wrap;
         }
 
         .footer-links a {
@@ -605,6 +657,9 @@
             .footer-social {
                 justify-content: center;
             }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
@@ -619,7 +674,7 @@
         <a href="#contact-form" class="top-bar-connect">Connect Now</a>
     </div>
 
-    <!-- Navigation - Matching Strength Page -->
+    <!-- NAVBAR - FIXED FOR CONTACT PAGE -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">Tomercon Developers <span>LLP</span></a>
@@ -631,11 +686,23 @@
                 <a href="ecosystem.html">Ecosystem</a>
                 <a href="contact.html" class="active">Contact</a>
             </div>
-            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
-    <!-- Hero Section with Background Image -->
+    <!-- MOBILE NAVIGATION PANEL -->
+    <div class="mobile-nav-panel" id="mobileNavPanel">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="strength.html">Strength</a>
+        <a href="ecosystem.html">Ecosystem</a>
+        <a href="contact.html" class="active">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-overlay"></div>
         <div class="hero-content">
@@ -662,7 +729,7 @@
                     <i class="fas fa-map-marker-alt"></i>
                 </div>
                 <h3>Visit Our Office</h3>
-                <p>Thalancheri Paramba,<br>Kozhikode, Kerala<br>India - 673003</p>
+                <p>3rd Floor, Aleema square, Beypore-Kozhikode Road, Kannanchery, Kozhikode, Kerala-673003</p>
             </div>
             
             <div class="contact-card" data-animate>
@@ -679,7 +746,7 @@
                     <i class="fas fa-envelope"></i>
                 </div>
                 <h3>Email Us</h3>
-                <p><a href="mailto:hello@tomercon.com">hello@tomercon.com</a><br><a href="mailto:support@tomercon.com">support@tomercon.com</a></p>
+                <p><a href="mailto:hello@tomercon.com">hello@tomercon.com</a><br><a href="mailto:tomercondevelopers@gmail.com">support@tomercon.com</a></p>
                 <p style="margin-top: 0.5rem; font-size: 0.8rem;">Response within 24h</p>
             </div>
         </div>
@@ -740,66 +807,76 @@
     </footer>
 
     <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
+        (function() {
+            // Navbar scroll effect
             const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+            window.addEventListener('scroll', () => {
+                if(window.scrollY > 50) navbar.classList.add('scrolled');
+                else navbar.classList.remove('scrolled');
+            });
 
-        // GSAP Scroll Animations
-        gsap.registerPlugin(ScrollTrigger);
+            // GSAP Animations
+            gsap.registerPlugin(ScrollTrigger);
+            gsap.from('.hero-badge', { duration: 0.8, y: 40, opacity: 1, ease: 'power2.out' });
+            gsap.from('.hero-content h1', { duration: 0.8, y: 40, opacity: 1, delay: 0.15, ease: 'power2.out' });
+            gsap.from('.hero-content p', { duration: 0.8, y: 40, opacity: 1, delay: 0.3, ease: 'power2.out' });
 
-        // Animate contact cards on scroll
-        const cards = document.querySelectorAll('[data-animate]');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
+            // Animate contact cards on scroll
+            const cards = document.querySelectorAll('.contact-card');
+            const formBox = document.querySelector('.contact-form-box');
+            const mapBox = document.querySelector('.map-box');
+
+            const observerOptions = { threshold: 0.2 };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
                         entry.target.classList.add('visible');
-                    }, index * 100);
-                }
-            });
-        }, { threshold: 0.2 });
+                    }
+                });
+            }, observerOptions);
 
-        cards.forEach(card => observer.observe(card));
+            cards.forEach(card => observer.observe(card));
+            if(formBox) observer.observe(formBox);
+            if(mapBox) observer.observe(mapBox);
 
-        // Stagger animation for contact cards
-        gsap.utils.toArray('.contact-card').forEach((card, i) => {
-            ScrollTrigger.create({
-                trigger: card,
-                start: 'top 85%',
-                onEnter: () => card.classList.add('visible'),
-                once: true
-            });
-        });
+            // MOBILE MENU: WORKING TOGGLE
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            const mobilePanel = document.getElementById('mobileNavPanel');
+            let menuOpen = false;
 
-        // Mobile menu
-        const mobileBtn = document.getElementById('mobileMenuBtn');
-        let mobileNav = null;
+            function closeMenu() {
+                if(mobilePanel) mobilePanel.style.display = 'none';
+                menuOpen = false;
+            }
 
-        if (mobileBtn) {
-            mobileBtn.addEventListener('click', () => {
-                if (!mobileNav) {
-                    mobileNav = document.createElement('div');
-                    mobileNav.style.cssText = 'display: flex; flex-direction: column; padding: 1rem 2rem; background: rgba(0, 0, 0, 0.98); backdrop-filter: blur(16px); position: fixed; top: 110px; left: 0; right: 0; z-index: 999; border-bottom: 1px solid #1e2a3a;';
-                    mobileNav.innerHTML = `
-                        <a href="index.html" style="padding: 0.7rem 0; color: #e0e4e8; text-decoration: none;">Home</a>
-                        <a href="about.html" style="padding: 0.7rem 0; color: #e0e4e8; text-decoration: none;">About</a>
-                        <a href="services.html" style="padding: 0.7rem 0; color: #e0e4e8; text-decoration: none;">Services</a>
-                        <a href="strength.html" style="padding: 0.7rem 0; color: #e0e4e8; text-decoration: none;">Strength</a>
-                        <a href="ecosystem.html" style="padding: 0.7rem 0; color: #e0e4e8; text-decoration: none;">Ecosystem</a>
-                        <a href="contact.html" style="padding: 0.7rem 0; color: #3b82f6; text-decoration: none;">Contact</a>
-                    `;
-                    document.body.appendChild(mobileNav);
-                }
-                mobileNav.style.display = mobileNav.style.display === 'flex' ? 'none' : 'flex';
-            });
-        }
+            function openMenu() {
+                if(mobilePanel) mobilePanel.style.display = 'flex';
+                menuOpen = true;
+            }
+
+            if(mobileBtn && mobilePanel) {
+                mobileBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if(menuOpen) closeMenu();
+                    else openMenu();
+                });
+
+                document.addEventListener('click', (event) => {
+                    if(menuOpen && !mobilePanel.contains(event.target) && !mobileBtn.contains(event.target)) {
+                        closeMenu();
+                    }
+                });
+
+                window.addEventListener('resize', () => {
+                    if(window.innerWidth > 768 && menuOpen) closeMenu();
+                });
+
+                const mobileLinks = mobilePanel.querySelectorAll('a');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => closeMenu());
+                });
+            }
+        })();
     </script>
 </body>
 </html>

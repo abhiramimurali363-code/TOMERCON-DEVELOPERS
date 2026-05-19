@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="navbar.css">
-    <link rel="javascript" href="navbar.js">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Tomercon Developers LLP | Our Services</title>
@@ -10,7 +8,7 @@
     <!-- Professional font stack -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -18,19 +16,8 @@
     <!-- GSAP & ScrollTrigger -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-     <!-- EXTERNAL NAVBAR CSS - SAME FOR ALL PAGES -->
-    <link rel="stylesheet" href="navbar.css">
     
-    <!-- YOUR PAGE SPECIFIC STYLES ONLY (NO NAVBAR CSS HERE!) -->
     <style>
-        /* ONLY your page-specific styles - NO navbar styling here */
-        body {
-            background-color: #000000;
-            font-family: 'Inter', sans-serif;
-            color: #eef2f5;
-        }
-    
         * {
             margin: 0;
             padding: 0;
@@ -48,68 +35,47 @@
 
         h1, h2, h3, h4, .logo, .section-title {
             font-family: 'Manrope', 'Inter', sans-serif;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: -0.02em;
         }
 
-        /* Custom Cursor */
-        .cursor {
-            width: 8px;
-            height: 8px;
-            background: #3b82f6;
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s ease;
-        }
-
-        .cursor-follower {
-            width: 40px;
-            height: 40px;
-            border: 1.5px solid rgba(59, 130, 246, 0.3);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            transition: transform 0.2s ease, width 0.2s, height 0.2s;
-        }
-
-        /* Navigation - Black/Blue Theme */
+        /* ========= NAVIGATION - STANDARDIZED ACROSS ALL PAGES ========= */
         .navbar {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
             z-index: 1000;
-            backdrop-filter: blur(12px);
-            background: rgba(0, 0, 0, 0.85);
-            border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+            backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 1px solid #0a2a3a;
             transition: all 0.3s ease;
         }
 
         .navbar.scrolled {
             background: rgba(0, 0, 0, 0.98);
-            border-bottom-color: rgba(59, 130, 246, 0.3);
+            border-bottom-color: #0066cc;
         }
 
         .nav-container {
-            max-width: 1400px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 70px;
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
+            font-family: 'Manrope', 'Space Grotesk', sans-serif;
             background: linear-gradient(135deg, #ffffff, #3b82f6, #1e40af);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             text-decoration: none;
-            letter-spacing: -0.02em;
         }
 
         .logo span {
@@ -129,9 +95,9 @@
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
-            transition: color 0.2s ease;
+            transition: all 0.3s ease;
             position: relative;
-            letter-spacing: 0.01em;
+            font-family: 'Inter', sans-serif;
         }
 
         .nav-links a::after {
@@ -142,7 +108,7 @@
             width: 0;
             height: 2px;
             background: linear-gradient(90deg, #3b82f6, #1e40af);
-            transition: width 0.25s ease;
+            transition: width 0.3s ease;
         }
 
         .nav-links a:hover::after,
@@ -159,17 +125,71 @@
             display: none;
             background: none;
             border: none;
-            color: white;
-            font-size: 1.5rem;
+            color: #e0e4e8;
+            font-size: 1.6rem;
             cursor: pointer;
+            z-index: 1001;
+            transition: color 0.2s ease;
+            padding: 0.5rem;
         }
 
+        .mobile-menu-btn:hover {
+            color: #3b82f6;
+        }
+
+        /* Mobile Navigation Panel - Smooth & Functional */
+        .mobile-nav-panel {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid #1e2a3a;
+            z-index: 999;
+            flex-direction: column;
+            padding: 1rem 1.8rem;
+            gap: 0.2rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .mobile-nav-panel a {
+            padding: 0.9rem 0;
+            color: #e0e4e8;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 500;
+            border-bottom: 1px solid #1e2a3a;
+            transition: all 0.25s ease;
+            display: block;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .mobile-nav-panel a:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-nav-panel a.active {
+            color: #3b82f6;
+            padding-left: 0.5rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .mobile-nav-panel a:hover {
+            color: #3b82f6;
+            padding-left: 0.5rem;
+        }
+
+        /* RESPONSIVE BREAKPOINT */
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .mobile-menu-btn { display: block; }
+            .nav-container { padding: 0 1.2rem; }
+            .logo { font-size: 1.3rem; }
         }
 
-        /* Page Header - Black/Blue Theme */
+        /* Page Header */
         .page-header {
             min-height: 55vh;
             position: relative;
@@ -177,16 +197,17 @@
             align-items: center;
             text-align: center;
             background: linear-gradient(147deg, rgba(0, 0, 0, 0.92) 0%, rgb(0 10 20 / 57%) 100%), url(https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1600);
+            background-size: cover;
             background-position: center;
-            margin-top: 70px;
+            padding-top: 70px;
         }
 
         .page-header-content {
             position: relative;
             z-index: 2;
-            max-width: 1400px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 5rem 2rem;
+            padding: 7rem 2rem 5rem;
         }
 
         .page-badge {
@@ -206,7 +227,7 @@
 
         .page-title {
             font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 1rem;
             color: #ffffff;
         }
@@ -219,11 +240,26 @@
             line-height: 1.7;
         }
 
+        @media (max-width: 768px) {
+            .page-header-content {
+                padding: 6rem 1.5rem 4rem;
+            }
+            .page-title {
+                font-size: 1.8rem;
+            }
+        }
+
         /* Section Styles */
         .section-container {
-            max-width: 1400px;
+            max-width: 1280px;
             margin: 0 auto;
             padding: 5rem 2rem;
+        }
+
+        @media (max-width: 640px) {
+            .section-container {
+                padding: 3rem 1.2rem;
+            }
         }
 
         .section-header {
@@ -245,7 +281,7 @@
 
         .section-title {
             font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 1rem;
             color: #ffffff;
         }
@@ -258,7 +294,7 @@
             line-height: 1.6;
         }
 
-        /* Services Grid - Black/Blue Theme */
+        /* Services Grid */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -286,6 +322,9 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
         }
 
         .service-card::before {
@@ -312,8 +351,8 @@
         }
 
         .service-icon {
-            width: 70px;
-            height: 70px;
+            width: 65px;
+            height: 65px;
             background: #111827;
             border: 1px solid #2d3a4a;
             border-radius: 18px;
@@ -345,7 +384,7 @@
             font-size: 1.3rem;
             margin-bottom: 0.8rem;
             color: #ffffff;
-            font-weight: 600;
+            font-weight: 700;
             transition: color 0.3s ease;
         }
 
@@ -360,159 +399,199 @@
             margin-bottom: 1.2rem;
         }
 
-        .service-features {
-            list-style: none;
-            margin-top: 1rem;
+        /* Hover Overlay with Features */
+        .service-hover-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            z-index: 15;
+            overflow: hidden;
         }
 
-        .service-features li {
-            color: #94a3b8;
-            font-size: 0.85rem;
-            padding: 0.4rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
+        .service-card:hover .service-hover-overlay {
+            opacity: 1;
+            visibility: visible;
         }
 
-        .service-features li i {
-            color: #3b82f6;
-            font-size: 0.7rem;
+        .overlay-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease;
         }
 
-        /* Process Section - Black/Blue Theme */
-        .process-section {
-            background: #030712;
-            padding: 5rem 2rem;
-        }
-
-        .process-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            max-width: 1400px;
-            margin: 2rem auto 0;
-        }
-
-        @media (max-width: 992px) {
-            .process-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 576px) {
-            .process-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .process-step {
-            text-align: center;
-            padding: 2rem 1.5rem;
-            background: #0a0a0a;
-            border-radius: 16px;
-            border: 1px solid #1e2a3a;
-            transition: all 0.3s ease;
-        }
-
-        .process-step:hover {
-            transform: translateY(-6px);
-            border-color: #3b82f6;
-            background: #111111;
-        }
-
-        .step-number {
-            width: 56px;
-            height: 56px;
-            background: #111827;
-            border: 1px solid #2d3a4a;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.2rem;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #3b82f6;
-            transition: all 0.3s ease;
-        }
-
-        .process-step:hover .step-number {
-            background: #1e293b;
-            border-color: #3b82f6;
-            color: #60a5fa;
+        .service-card:hover .overlay-bg {
             transform: scale(1.05);
         }
 
-        .process-step h4 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            color: #ffffff;
+        .overlay-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 20, 40, 0.92) 100%);
         }
 
-        .process-step p {
-            color: #cbd5e1;
-            font-size: 0.85rem;
-            line-height: 1.5;
-        }
-
-        /* Tech Section - Black/Blue Theme */
-        .tech-section {
-            padding: 5rem 2rem;
-            background: #000000;
-        }
-
-        .tech-grid {
+        .overlay-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            padding: 1.5rem;
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            flex-wrap: wrap;
-            gap: 2.5rem;
-            margin-top: 2rem;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
+        }
+
+        .overlay-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .overlay-icon i {
+            font-size: 1.5rem;
+            color: #3b82f6;
+        }
+
+        .overlay-content h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.8rem;
+        }
+
+        .overlay-features {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .overlay-features li {
+            color: #e2e8f0;
+            font-size: 0.75rem;
+            padding: 0.3rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .overlay-features li i {
+            color: #3b82f6;
+            font-size: 0.7rem;
+            width: 16px;
+        }
+
+        .service-card .service-icon,
+        .service-card h3,
+        .service-card p {
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon,
+        .service-card:hover h3,
+        .service-card:hover p {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        /* Tech Carousel Section */
+        .tech-section {
+            padding: 4rem 0;
+            background: #000000;
+            overflow: hidden;
+        }
+
+        .tech-carousel-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .tech-track {
+            display: flex;
+            gap: 2rem;
+            width: max-content;
+            animation: scrollTechLinear 25s linear infinite;
+        }
+
+        .tech-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollTechLinear {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         .tech-item {
-            text-align: center;
-            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
             min-width: 100px;
+            padding: 1rem;
+            background: #0a0a0a;
+            border: 1px solid #1e2a3a;
+            border-radius: 12px;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .tech-item:hover {
             transform: translateY(-5px);
-        }
-
-        .tech-icon {
-            width: 70px;
-            height: 70px;
-            background: #111827;
-            border: 1px solid #2d3a4a;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 0.8rem;
-            transition: all 0.3s ease;
-        }
-
-        .tech-item:hover .tech-icon {
-            background: #1e293b;
             border-color: #3b82f6;
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.15);
+            background: #111111;
         }
 
-        .tech-icon i {
-            font-size: 2rem;
-            color: #3b82f6;
+        .tech-logo {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
         }
 
         .tech-item span {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: #cbd5e1;
+            font-weight: 500;
         }
 
-        /* CTA Section - Black/Blue Theme */
+        .tech-item:hover span {
+            color: #3b82f6;
+        }
+
+        @media (max-width: 768px) {
+            .tech-item {
+                min-width: 80px;
+                padding: 0.75rem;
+            }
+            .tech-logo {
+                width: 40px;
+                height: 40px;
+            }
+            .tech-track {
+                gap: 1rem;
+            }
+        }
+
+        /* CTA Section */
         .cta {
             padding: 5rem 2rem;
             background: #030712;
@@ -524,7 +603,7 @@
         .cta h2 {
             font-size: clamp(1.8rem, 3.5vw, 2.3rem);
             margin-bottom: 1rem;
-            font-weight: 600;
+            font-weight: 700;
             color: #ffffff;
         }
 
@@ -558,7 +637,7 @@
             box-shadow: 0 12px 20px -8px rgba(37, 99, 235, 0.5);
         }
 
-        /* Footer - Black/Blue Theme */
+        /* Footer */
         .footer {
             background: #000000;
             padding: 3rem 2rem 2rem;
@@ -566,7 +645,7 @@
         }
 
         .footer-container {
-            max-width: 1400px;
+            max-width: 1280px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -624,7 +703,6 @@
         .footer-social a:hover {
             background: #3b82f6;
             color: #000000;
-            border-color: #3b82f6;
             transform: translateY(-2px);
         }
 
@@ -646,89 +724,52 @@
             }
         }
 
-        /* Animation Keyframes */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-8px); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-
-        /* Auto-scrolling Carousel Styles */
-        .tech-carousel-wrapper {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-        }
-
-        .tech-track {
-            display: flex;
-            gap: 2rem;
-            width: max-content;
-            animation: scrollTech 30s linear infinite;
-            padding: 1rem 0.5rem;
-        }
-
-        .tech-track:hover {
-            animation-play-state: paused;
-        }
-
-        @keyframes scrollTech {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        ::-webkit-scrollbar {
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #111827;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #3b82f6;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #60a5fa;
         }
     </style>
 </head>
 <body>
 
-
- <!-- NAVBAR - SAME HTML FOR ALL PAGES -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">Tomercon Developers <span>LLP</span></a>
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="services.html">Services</a>
-                <a href="strength.html">Strength</a>
-                <a href="ecosystem.html">Ecosystem</a>
-                <a href="contact.html">Contact</a>
-            </div>
-            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+<!-- NAVBAR - STANDARDIZED (SAME AS INDEX.HTML, ABOUT.HTML, CONTACT.HTML, ECOSYSTEM.HTML) -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">Tomercon Developers <span>LLP</span></a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html" class="active">Services</a>
+            <a href="strength.html">Strength</a>
+            <a href="ecosystem.html">Ecosystem</a>
+            <a href="contact.html">Contact</a>
         </div>
-    </nav>
-    <!-- Page Header -->
-    <section class="page-header">
-        <div class="page-header-content">
-            <div class="page-badge">✦ WHAT WE OFFER</div>
-            <h1 class="page-title">Enterprise Technology Services</h1>
-            <p class="page-subtitle">Comprehensive digital solutions tailored to your industry needs. From mobile apps to complete organizational systems, we deliver excellence at every step.</p>
-        </div>
-    </section>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</nav>
 
-    <!-- Services Grid Section - Hover Effect with Relevant High-Quality Images -->
+<!-- MOBILE NAVIGATION PANEL - STANDARDIZED -->
+<div class="mobile-nav-panel" id="mobileNavPanel">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html" class="active">Services</a>
+    <a href="strength.html">Strength</a>
+    <a href="ecosystem.html">Ecosystem</a>
+    <a href="contact.html">Contact</a>
+</div>
+
+<!-- Page Header -->
+<section class="page-header">
+    <div class="page-header-content">
+        <div class="page-badge">✦ WHAT WE OFFER</div>
+        <h1 class="page-title">Enterprise Technology Services</h1>
+        <p class="page-subtitle">Comprehensive digital solutions tailored to your industry needs. From mobile apps to complete organizational systems, we deliver excellence at every step.</p>
+    </div>
+</section>
+
+<!-- Services Grid Section -->
 <section class="section-container">
     <div class="section-header">
         <div class="section-badge">CORE SERVICES</div>
@@ -858,222 +899,19 @@
     </div>
 </section>
 
-<!-- Styles for Hover Overlay with High-Quality Images -->
-<style>
-    .service-card {
-        position: relative;
-        overflow: hidden;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        min-height: 320px;
-        background: #0a0a0a;
-        border: 1px solid #1e2a3a;
-        border-radius: 20px;
-        padding: 2rem;
-    }
-
-    /* Hide the front bullet points completely */
-    .service-features {
-        display: none;
-    }
-
-    /* Hover Overlay - appears on hover with background image and bullet points */
-    .service-hover-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 20px;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.4s ease;
-        z-index: 15;
-        overflow: hidden;
-    }
-
-    .service-card:hover .service-hover-overlay {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    /* Background Image with high quality and dark overlay */
-    .overlay-bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-position: center;
-        transition: transform 0.5s ease;
-    }
-
-    .service-card:hover .overlay-bg {
-        transform: scale(1.05);
-    }
-
-    .overlay-bg::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 20, 40, 0.92) 100%);
-    }
-
-    /* Overlay Content - Bullet points appear here */
-    .overlay-content {
-        position: relative;
-        z-index: 2;
-        height: 100%;
-        padding: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .overlay-icon {
-        width: 50px;
-        height: 50px;
-        background: rgba(59, 130, 246, 0.2);
-        border: 1px solid rgba(59, 130, 246, 0.5);
-        border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 0.8rem;
-    }
-
-    .overlay-icon i {
-        font-size: 1.5rem;
-        color: #3b82f6;
-    }
-
-    .overlay-content h4 {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: #ffffff;
-        margin-bottom: 0.8rem;
-        letter-spacing: -0.01em;
-    }
-
-    /* Bullet points - ONLY visible on hover inside the overlay */
-    .overlay-features {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-
-    .overlay-features li {
-        color: #e2e8f0;
-        font-size: 0.75rem;
-        padding: 0.3rem 0;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .overlay-features li i {
-        color: #3b82f6;
-        font-size: 0.7rem;
-        width: 16px;
-    }
-
-    /* Fade out front content on hover */
-    .service-card .service-icon,
-    .service-card h3,
-    .service-card p {
-        transition: all 0.3s ease;
-    }
-
-    .service-card:hover .service-icon,
-    .service-card:hover h3,
-    .service-card:hover p {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-
-    /* Card styling - compact */
-    .service-card {
-        min-height: 320px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .service-icon {
-        width: 60px;
-        height: 60px;
-        background: #111827;
-        border: 1px solid #2d3a4a;
-        border-radius: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 1.2rem;
-        transition: all 0.3s ease;
-    }
-
-    .service-icon i {
-        font-size: 1.6rem;
-        color: #3b82f6;
-    }
-
-    .service-card h3 {
-        font-size: 1.2rem;
-        margin-bottom: 0.6rem;
-        color: #ffffff;
-        font-weight: 600;
-    }
-
-    .service-card p {
-        color: #cbd5e1;
-        line-height: 1.5;
-        font-size: 0.85rem;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-        .service-card {
-            min-height: 300px;
-            padding: 1.5rem;
-        }
-        .overlay-content {
-            padding: 1rem;
-        }
-        .overlay-features li {
-            font-size: 0.7rem;
-            padding: 0.2rem 0;
-        }
-        .overlay-content h4 {
-            font-size: 0.95rem;
-        }
-        .service-card h3 {
-            font-size: 1rem;
-        }
-        .service-card p {
-            font-size: 0.75rem;
-        }
-    }
-</style>
-<!-- Tech Stack Section - SEAMLESS AUTO SCROLLING CAROUSEL WITH LOGOS -->
-<section class="tech-section" style="background: #000000; padding: 4rem 0; overflow: hidden;">
-    <div style="max-width: 1400px; margin: 0 auto; padding: 0 1.5rem;">
+<!-- Tech Stack Section - Auto Scrolling Carousel -->
+<section class="tech-section">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 1.5rem;">
         <div class="section-header">
             <div class="section-badge">TECHNOLOGY STACK</div>
             <h2 class="section-title">Tools & Technologies We Use</h2>
             <p class="section-subtitle">Leveraging modern, enterprise-grade technologies to build robust solutions</p>
         </div>
     </div>
-
-    <div class="tech-carousel-wrapper" style="margin-top: 3rem; position: relative; width: 100%; overflow: hidden;">
-        <!-- Gradient Fade Edges -->
-        <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 120px; background: linear-gradient(to right, #000000, transparent); z-index: 10; pointer-events: none;"></div>
-        <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 120px; background: linear-gradient(to left, #000000, transparent); z-index: 10; pointer-events: none;"></div>
-        
-        <!-- Seamless Scrolling Track - Duplicated items for infinite scroll -->
+    <div class="tech-carousel-wrapper" style="margin-top: 3rem; position: relative;">
+        <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 100px; background: linear-gradient(to right, #000000, transparent); z-index: 10; pointer-events: none;"></div>
+        <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 100px; background: linear-gradient(to left, #000000, transparent); z-index: 10; pointer-events: none;"></div>
         <div class="tech-track" id="techTrack">
-            <!-- Set 1 -->
             <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" class="tech-logo"><span>React</span></div>
             <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" alt="Vue.js" class="tech-logo"><span>Vue.js</span></div>
             <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" alt="Angular" class="tech-logo"><span>Angular</span></div>
@@ -1085,12 +923,8 @@
             <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" class="tech-logo"><span>Docker</span></div>
             <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" alt="AWS" class="tech-logo"><span>AWS</span></div>
             <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes" class="tech-logo"><span>Kubernetes</span></div>
-            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" class="tech-logo"><span>Figma</span></div>
-            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" class="tech-logo"><span>TypeScript</span></div>
             <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js" class="tech-logo"><span>Next.js</span></div>
-            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" class="tech-logo"><span>TensorFlow</span></div>
-            
-            <!-- Set 2 - Duplicate for seamless loop -->
+            <!-- Duplicate for seamless loop -->
             <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" class="tech-logo"><span>React</span></div>
             <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" alt="Vue.js" class="tech-logo"><span>Vue.js</span></div>
             <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" alt="Angular" class="tech-logo"><span>Angular</span></div>
@@ -1102,282 +936,123 @@
             <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" class="tech-logo"><span>Docker</span></div>
             <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" alt="AWS" class="tech-logo"><span>AWS</span></div>
             <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes" class="tech-logo"><span>Kubernetes</span></div>
-            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" class="tech-logo"><span>Figma</span></div>
-            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" class="tech-logo"><span>TypeScript</span></div>
             <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js" class="tech-logo"><span>Next.js</span></div>
-            <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" class="tech-logo"><span>TensorFlow</span></div>
         </div>
     </div>
 </section>
 
-<style>
-    /* Tech Carousel Styles */
-    .tech-carousel-wrapper {
-        position: relative;
-        width: 100%;
-        overflow: hidden;
-    }
-    
-    .tech-track {
-        display: flex;
-        gap: 2rem;
-        width: max-content;
-        animation: scrollTechLinear 25s linear infinite;
-    }
-    
-    /* Smooth, continuous animation - no pauses */
-    @keyframes scrollTechLinear {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(-50%);
-        }
-    }
-    
-    /* Pause animation on hover */
-    .tech-track:hover {
-        animation-play-state: paused;
-    }
-    
-    /* Tech Item Styles with Logos */
-    .tech-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.75rem;
-        min-width: 100px;
-        padding: 1rem;
-        background: #0a0a0a;
-        border: 1px solid #1e2a3a;
-        border-radius: 12px;
-        transition: all 0.3s ease;
-        cursor: pointer;
-    }
-    
-    .tech-item:hover {
-        transform: translateY(-5px);
-        border-color: #3b82f6;
-        background: #111111;
-        box-shadow: 0 10px 25px -8px rgba(59, 130, 246, 0.2);
-    }
-    
-    .tech-logo {
-        width: 50px;
-        height: 50px;
-        object-fit: contain;
-        transition: transform 0.3s ease;
-    }
-    
-    .tech-item:hover .tech-logo {
-        transform: scale(1.1);
-    }
-    
-    .tech-item span {
-        font-size: 0.75rem;
-        color: #cbd5e1;
-        font-weight: 500;
-        font-family: 'Inter', sans-serif;
-        transition: color 0.3s ease;
-    }
-    
-    .tech-item:hover span {
-        color: #3b82f6;
-    }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-        .tech-item {
-            min-width: 80px;
-            padding: 0.75rem;
-        }
-        .tech-logo {
-            width: 40px;
-            height: 40px;
-        }
-        .tech-item span {
-            font-size: 0.65rem;
-        }
-        .tech-track {
-            gap: 1rem;
-        }
-        [style*="width: 120px"] {
-            width: 60px !important;
-        }
-    }
-    
-    @media (max-width: 480px) {
-        .tech-item {
-            min-width: 70px;
-        }
-        .tech-logo {
-            width: 35px;
-            height: 35px;
-        }
-    }
-    
-    /* For Next.js dark logo - add white background */
-    .tech-item img[alt="Next.js"] {
-        background: #ffffff;
-        border-radius: 8px;
-        padding: 4px;
-    }
-</style>
+<!-- CTA Section -->
+<section class="cta">
+    <h2>Ready to Build Your Next Solution?</h2>
+    <p>Let's discuss how Tomercon Developers LLP can help bring your vision to life with our enterprise technology services.</p>
+    <a href="contact.html" class="btn-primary">Start Your Project →</a>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <div class="logo" style="font-size: 1.2rem;">Tomercon Developers <span>LLP</span></div>
+            <p>Building technology that runs organizations across education, sports, and corporate sectors. Enterprise-grade solutions delivered with excellence.</p>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-links">
+            <h4>Company</h4>
+            <a href="about.html">About Us</a>
+            <a href="services.html">Services</a>
+            <a href="strength.html">Our Strength</a>
+            <a href="ecosystem.html">Ecosystem</a>
+        </div>
+        <div class="footer-links">
+            <h4>Support</h4>
+            <a href="contact.html">Contact Us</a>
+            <a href="#">Help Center</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+        <div class="footer-links">
+            <h4>Connect</h4>
+            <a href="#"><i class="fas fa-envelope" style="margin-right: 0.5rem;"></i> hello@tomercon.com</a>
+            <a href="#"><i class="fas fa-phone" style="margin-right: 0.5rem;"></i> +91 62350 55807</a>
+            <a href="#"><i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i> Kozhikode, Kerala</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 Tomercon Developers LLP — Technology That Runs Organizations. All rights reserved.</p>
+    </div>
+</footer>
 
 <script>
-    // Ensure seamless infinite scrolling
-    document.addEventListener('DOMContentLoaded', function() {
-        const track = document.querySelector('.tech-track');
-        if (track) {
-            // Clone items to ensure smooth infinite scroll if needed
-            const items = track.innerHTML;
-            // Already have 2 sets, but ensure enough width
-            if (track.scrollWidth < window.innerWidth * 2) {
-                track.innerHTML = items + items;
-            }
+    (function() {
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if(window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+        });
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.from('.page-badge', { duration: 0.8, y: 40, opacity: 1, ease: 'power2.out' });
+        gsap.from('.page-title', { duration: 0.8, y: 40, opacity: 1, delay: 0.15, ease: 'power2.out' });
+        gsap.from('.page-subtitle', { duration: 0.8, y: 40, opacity: 1, delay: 0.3, ease: 'power2.out' });
+        gsap.from('.service-card', { scrollTrigger: { trigger: '.services-grid', start: 'top 85%' }, duration: 0.7, y: 50, opacity: 1, stagger: 0.1, ease: 'power3.out' });
+        gsap.from('.cta h2, .cta p, .cta .btn-primary', { scrollTrigger: { trigger: '.cta', start: 'top 80%' }, duration: 0.6, y: 25, opacity: 1, stagger: 0.1, ease: 'power2.out' });
+
+        // Icon float animations
+        document.querySelectorAll('.service-icon i').forEach((icon, index) => {
+            icon.style.animation = `float ${4 + index}s ease-in-out infinite`;
+        });
+
+        // MOBILE MENU: WORKING TOGGLE (STANDARDIZED)
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const mobilePanel = document.getElementById('mobileNavPanel');
+        let menuOpen = false;
+
+        function closeMenu() {
+            if(mobilePanel) mobilePanel.style.display = 'none';
+            menuOpen = false;
         }
-    });
+
+        function openMenu() {
+            if(mobilePanel) mobilePanel.style.display = 'flex';
+            menuOpen = true;
+        }
+
+        if(mobileBtn && mobilePanel) {
+            mobileBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if(menuOpen) closeMenu();
+                else openMenu();
+            });
+
+            document.addEventListener('click', (event) => {
+                if(menuOpen && !mobilePanel.contains(event.target) && !mobileBtn.contains(event.target)) {
+                    closeMenu();
+                }
+            });
+
+            window.addEventListener('resize', () => {
+                if(window.innerWidth > 768 && menuOpen) closeMenu();
+            });
+
+            const mobileLinks = mobilePanel.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => closeMenu());
+            });
+        }
+
+        // Ensure tech carousel seamless scrolling
+        const track = document.querySelector('.tech-track');
+        if(track && track.scrollWidth < window.innerWidth * 1.5) {
+            track.innerHTML = track.innerHTML + track.innerHTML;
+        }
+    })();
 </script>
-
-    <!-- CTA Section -->
-    <section class="cta">
-        <h2>Ready to Build Your Next Solution?</h2>
-        <p>Let's discuss how Tomercon Developers LLP can help bring your vision to life with our enterprise technology services.</p>
-        <a href="contact.html" class="btn-primary">Start Your Project →</a>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <div class="logo" style="font-size: 1.2rem;">Tomercon Developers <span>LLP</span></div>
-                <p>Building technology that runs organizations across education, sports, and corporate sectors. Enterprise-grade solutions delivered with excellence.</p>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-            <div class="footer-links">
-                <h4>Company</h4>
-                <a href="about.html">About Us</a>
-                <a href="services.html">Services</a>
-                <a href="strength.html">Our Strength</a>
-                <a href="ecosystem.html">Ecosystem</a>
-            </div>
-            <div class="footer-links">
-                <h4>Support</h4>
-                <a href="contact.html">Contact Us</a>
-                <a href="#">Help Center</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-            </div>
-            <div class="footer-links">
-                <h4>Connect</h4>
-                <a href="#"><i class="fas fa-envelope" style="margin-right: 0.5rem;"></i> hello@tomercon.com</a>
-                <a href="#"><i class="fas fa-phone" style="margin-right: 0.5rem;"></i> +91 62350 55807</a>
-                <a href="#"><i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i> Kozhikode, Kerala</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2025 Tomercon Developers LLP — Technology That Runs Organizations. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script>
-        (function(){
-            // Custom Cursor
-            const cursor = document.querySelector('.cursor');
-            const follower = document.querySelector('.cursor-follower');
-            if(cursor && follower) {
-                document.addEventListener('mousemove', (e) => {
-                    cursor.style.transform = `translate(${e.clientX - 4}px, ${e.clientY - 4}px)`;
-                    follower.style.transform = `translate(${e.clientX - 20}px, ${e.clientY - 20}px)`;
-                });
-                const interactive = document.querySelectorAll('.btn-primary, .service-card, .process-step, .tech-item, a');
-                interactive.forEach(el => {
-                    el.addEventListener('mouseenter', () => { 
-                        follower.style.width = '56px'; 
-                        follower.style.height = '56px'; 
-                        follower.style.borderColor = 'rgba(59,130,246,0.6)'; 
-                    });
-                    el.addEventListener('mouseleave', () => { 
-                        follower.style.width = '40px'; 
-                        follower.style.height = '40px'; 
-                        follower.style.borderColor = 'rgba(59,130,246,0.3)'; 
-                    });
-                });
-            }
-
-            // Navbar scroll
-            window.addEventListener('scroll', () => {
-                const nb = document.getElementById('navbar');
-                if(window.scrollY > 50) nb.classList.add('scrolled');
-                else nb.classList.remove('scrolled');
-            });
-
-            // GSAP Animations
-            gsap.registerPlugin(ScrollTrigger);
-
-            gsap.from('.page-badge', { duration: 0.8, y: 40, opacity: 1, ease: 'power2.out' });
-            gsap.from('.page-title', { duration: 0.8, y: 40, opacity: 1, delay: 0.15, ease: 'power2.out' });
-            gsap.from('.page-subtitle', { duration: 0.8, y: 40, opacity: 1, delay: 0.3, ease: 'power2.out' });
-
-            gsap.from('.service-card', {
-                scrollTrigger: { trigger: '.services-grid', start: 'top 85%' },
-                duration: 0.7, y: 50, opacity: 1, stagger: 0.1, ease: 'power3.out'
-            });
-
-            gsap.from('.tech-item', {
-                scrollTrigger: { trigger: '.tech-track', start: 'top 85%' },
-                duration: 0.6, scale: 0.8, opacity: 1, stagger: 0.06, ease: 'back.out(0.5)'
-            });
-
-            gsap.from('.cta h2, .cta p, .cta .btn-primary', {
-                scrollTrigger: { trigger: '.cta', start: 'top 80%' },
-                duration: 0.6, y: 25, opacity: 1, stagger: 0.1, ease: 'power2.out'
-            });
-
-            // Icon float animations
-            document.querySelectorAll('.service-icon i').forEach((icon, index) => {
-                icon.style.animation = `float ${4 + index}s ease-in-out infinite`;
-                icon.style.animationDelay = `${index * 0.2}s`;
-            });
-
-            // Mobile menu
-            const mobileBtn = document.getElementById('mobileMenuBtn');
-            let mobileNav = null;
-            if(mobileBtn) {
-                mobileBtn.addEventListener('click', () => {
-                    if(!mobileNav) {
-                        mobileNav = document.createElement('div');
-                        mobileNav.style.cssText = 'display:flex; flex-direction:column; padding:1rem 2rem; background:#000000; backdrop-filter:blur(16px); position:fixed; top:70px; left:0; right:0; z-index:999; border-bottom:1px solid #1e2a3a;';
-                        mobileNav.innerHTML = `
-                            <a href="index.html" style="padding:0.7rem 0; color:#e0e8ef; text-decoration:none;">Home</a>
-                            <a href="about.html" style="padding:0.7rem 0; color:#e0e8ef;">About</a>
-                            <a href="services.html" style="padding:0.7rem 0; color:#3b82f6;">Services</a>
-                            <a href="strength.html" style="padding:0.7rem 0; color:#e0e8ef;">Strength</a>
-                            <a href="ecosystem.html" style="padding:0.7rem 0; color:#e0e8ef;">Ecosystem</a>
-                            <a href="contact.html" style="padding:0.7rem 0; color:#e0e8ef;">Contact</a>
-                        `;
-                        document.body.appendChild(mobileNav);
-                    }
-                    mobileNav.style.display = mobileNav.style.display === 'flex' ? 'none' : 'flex';
-                });
-            }
-
-            // Footer social hover animation
-            document.querySelectorAll('.footer-social a').forEach(icon => {
-                icon.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px) rotate(360deg)';
-                    this.style.transition = 'all 0.5s ease';
-                });
-                icon.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) rotate(0deg)';
-                });
-            });
-        })();
-    </script>
 </body>
 </html>
